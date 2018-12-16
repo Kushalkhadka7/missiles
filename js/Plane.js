@@ -11,6 +11,7 @@ class Plane {
     }
 
     draw() {
+
         Canvas.drawImagePlane(sprites.plane, this.position, this.dimension, PLANE_ORIGIN, this.rotation)
     }
 

@@ -7,6 +7,7 @@ class Canvas2D {
     }
 
     clear(x, y, height, width) {
+
         this.context.clearRect(x, y, width, height);
     }
 

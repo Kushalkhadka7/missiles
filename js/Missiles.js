@@ -14,6 +14,7 @@ class Missiles {
     }
 
     draw() {
+
         Canvas.drawImagePlane(sprites.missile, this.position, this.dimension, MISSILE_ORIGIN, this.rotation);
     }
 
@@ -72,6 +73,17 @@ class Missiles {
             collided = true;
         }
     }
+
+    // showParticleEffect(x, y) {
+    //     // color.gradualShift(direction);
+    //     // let particle = new Particles(
+    //     //     x, y,
+    //     //     15,
+    //     //     color.getRGBString(),
+    //     //     0, 0
+    //     // ).draw();
+    // }
+
 
 }
 

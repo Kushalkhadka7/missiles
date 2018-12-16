@@ -12,6 +12,8 @@ let scoreArray = [];
 class Game {
     constructor() {
         this.startMenu();
+        this.frameCount = 0;
+        this.seconds = 0;
     }
 
     init() {
@@ -25,6 +27,8 @@ class Game {
 
     mainloop(time) {
 
+        time == undefined ? time = 0 : time;
+
         Canvas.clear(0, 0, Canvas.canvas.width, Canvas.canvas.height);
         game.gameWorld.draw();
         game.gameWorld.update();
@@ -34,7 +38,12 @@ class Game {
             game.gameWorld.drawAfterGameStart();
             game.gameWorld.updateAfterGameStart();
 
+            game.drawControls();
+            game.clacHighScore();
+
         }
+
+        Mouse.resetMouse();
 
         reqAnimationFrame = requestAnimationFrame(game.mainloop);
 
@@ -95,6 +104,27 @@ class Game {
             gameOverMenuContainer.style.display = "none";
             clearInterval(gameOverTimeOut);
         });
+    }
+
+    drawControls() {
+
+        this.frameCount++;
+
+        if (this.frameCount % 50 == 0) {
+            this.seconds++;
+        }
+
+        Canvas.context.fillText(this.seconds, 10, 30);
+        Canvas.context.font = "20px Arial";
+        Canvas.context.fillText('12', 320, 30);
+        Canvas.drawSprites(sprites.star, { x: 350, y: 10 }, { x: 25, y: 25 });
+    }
+
+    clacHighScore() {
+
+        if (this.seconds > this.highScore) {
+            window.localStorage.setItem('highScore', this.seconds);
+        }
     }
 }
 
