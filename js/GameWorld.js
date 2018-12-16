@@ -14,6 +14,16 @@ class GameWorld {
         this.plane.draw();
 
         // console.log(this.missile.position)
+
+    }
+
+    update() {
+        this.background.update(this.plane.rotation);
+        this.plane.update();
+
+    }
+
+    drawAfterGameStart() {
         Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
 
         this.direction += 0.01;
@@ -46,26 +56,10 @@ class GameWorld {
         }
         this.missile.draw();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
-    update() {
-        this.background.update(this.plane.rotation);
-        this.plane.update();
+    updateAfterGameStart() {
         this.missile.update();
-        // this.particle.update();
+        this.missile.collisonWithPlane();
     }
 }

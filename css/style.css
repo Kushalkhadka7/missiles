@@ -1,0 +1,174 @@
+
+.clearfix::before,.clearfix::after{
+    clear: both;
+	content: "";
+	display: table;
+}
+.main-container{
+    width: 400px;
+    height: 600px;
+    position: relative;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+}
+.start-menu,
+.game-over-menu{
+    width: 400px;
+    height: 600px;
+    position: absolute;
+    opacity: 0.8;
+    display: block;
+}
+.top-setting,
+.top-content{
+   width: 100%;
+}
+.score,.played-time{
+    float: left;
+    padding: 15px 0 15px 10px;
+    line-height: 25px;
+}
+.image-star,
+.star-image{
+    float: left;
+    width: 25px;
+}
+.image-star img,
+.star-image img{
+    width: 100%;
+    border-radius: 50%;
+}
+.score-text,
+.items{
+    float: left;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.volume-control,
+.collected-stars{
+    padding: 15px 15px 15px 0;
+    float:right;
+    width: 20px;
+    cursor: pointer;
+}
+.volume-control img{
+    width: 100%;
+}
+#v-off{
+    display: none;
+}
+
+.banner{
+    width: 100%;
+}
+
+.banner img{
+    width: 100%;
+}
+.play-btn{
+    width: 55px;
+    margin: 0 auto;
+    padding-top: 150px;
+    cursor: pointer;
+}
+.play-btn img{
+    width: 100%;
+    background: red;
+    border-radius: 50%;
+}
+
+.bottom-settings{
+   width: 100%;
+   padding-top: 120px;
+}
+.home-icon,.setting-icon{
+    width: 30px;
+    cursor: pointer;
+}
+.home-icon img,
+.setting-icon img{
+    width: 100%;
+}
+.home-icon{
+   background: red;
+    float: left;
+    padding: 6px 8px 6px 8px;
+    border-radius: 50%;
+    margin-left: 25px;
+}
+.setting-icon{
+    background: orange;
+    float: right;
+    padding: 7px 8px 5px 8px;
+    border-radius: 50%;    
+    margin-right: 25px;
+}
+
+/* game over menu */
+
+.game-over-menu{
+    display: none;
+}
+.played-time{
+    font-size: 20px;
+    font-weight: bold;
+}
+.collected-stars{
+    width: 20%;
+    padding-right: 0;
+}
+.items{
+    padding-right: 10px;
+    padding-left: 0;
+}
+.middle-content{
+    padding: 100px 0 0 0;
+}
+.middle-content ul li{
+    width: 40%;
+    margin: 0 auto;
+    text-align: center;
+    list-style-type: none;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 5px 0;
+}
+.scored-content{
+    float: right;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.middle-content ul li:last-child{
+    border-top: 1px solid #000;
+}
+.middle-content ul li:nth-child(even){
+    padding-bottom: 30px;
+}
+.middle-content .play-btn{
+    padding-top: 50px;
+}
+.game-over-menu .bottom-settings{
+    padding-top: 45px;
+}
+.game-over-menu .middle-content .play-btn{
+    padding-top: 45px;
+}
+
+.pause-btn{
+    width: 30px;
+    position: absolute;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 15px;
+    display: block;
+    cursor: pointer;
+}
+.pause-btn img{
+    width: 100%;
+}

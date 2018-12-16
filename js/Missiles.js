@@ -58,6 +58,21 @@ class Missiles {
         }
     }
 
+    collisonWithPlane() {
+
+        let planeX = plane.position.x - 20;
+        let planeY = plane.position.y - 20;
+        let missileX = this.position.x + 5;
+        let missileY = this.position.y + 5;
+
+        let distance = calcDistance(planeX, planeY, missileX, missileY);
+
+        if (distance == true) {
+            console.log('collide');
+            collided = true;
+        }
+    }
+
 }
 
 let missile = new Missiles();
