@@ -1,34 +1,43 @@
 let particlesArray = [];
 class GameWorld {
     constructor() {
+
         this.background = new Background();
+
+        this.star = new Stars();
+
         this.plane = new Plane();
+
         this.missile = new Missiles();
+
         this.color = new Color(0, 0, 0);
         this.direction = 0;
 
     }
 
     draw() {
+
         this.background.draw();
         this.plane.draw();
-
-        // console.log(this.missile.position)
 
     }
 
     update() {
+
         this.background.update(this.plane.rotation);
         this.plane.update();
 
     }
 
     drawAfterGameStart() {
+
+
+        this.star.draw();
+
         Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
 
         this.direction += 0.01;
         this.color.gradualShift(this.direction);
-
 
         particlesArray.push(
             new Particles(
@@ -59,7 +68,11 @@ class GameWorld {
     }
 
     updateAfterGameStart() {
+
+        this.star.update(this.plane.rotation);
+        this.star.starCollisonWithPlane();
         this.missile.update();
         this.missile.collisonWithPlane();
+
     }
 }
