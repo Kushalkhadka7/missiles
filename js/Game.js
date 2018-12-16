@@ -17,10 +17,12 @@ class Game {
     }
 
     init() {
+
         this.gameWorld = new GameWorld();
     }
 
     start() {
+
         game.init();
         game.mainloop();
     }
@@ -51,12 +53,12 @@ class Game {
             cancelAnimationFrame(reqAnimationFrame);
             startGame = false;
             gameOver = true;
+
             gameOverTimeOut = setTimeout(() => {
                 game.gameOverMenu();
             }, 1000);
         }
     }
-
 
     startMenu() {
 

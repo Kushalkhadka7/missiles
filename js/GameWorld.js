@@ -1,5 +1,8 @@
 let particlesArray = [];
+let interval;
+
 class GameWorld {
+
     constructor() {
 
         this.background = new Background();
@@ -19,33 +22,44 @@ class GameWorld {
 
         this.background.draw();
         this.plane.draw();
-
     }
 
     update() {
 
         this.background.update(this.plane.rotation);
         this.plane.update();
-
     }
 
     drawAfterGameStart() {
 
+        Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
 
         this.star.draw();
 
-        Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
+        this.showParticles(
+            this.missile.position.x,
+            this.missile.position.y,
+            random(1, 3),
+            this.missile.vx,
+            this.missile.vy
+        );
+
+        this.missile.draw();
+
+    }
+
+    showParticles(x, y, radius, vx, vy) {
 
         this.direction += 0.01;
         this.color.gradualShift(this.direction);
 
         particlesArray.push(
             new Particles(
-                this.missile.position.x, this.missile.position.y,
-                random(1, 3),
+                x, y,
+                radius,
                 this.color.getRGBString(),
-                this.missile.vx,
-                this.missile.vy
+                vx,
+                vy
             )
         );
 
@@ -60,11 +74,7 @@ class GameWorld {
             }
 
             particle.draw();
-            particle.updatePosition();
-
         }
-        this.missile.draw();
-
     }
 
     updateAfterGameStart() {
@@ -76,3 +86,5 @@ class GameWorld {
 
     }
 }
+
+let gameWorld = new GameWorld();

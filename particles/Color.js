@@ -15,5 +15,6 @@ class Color {
         this.b = Math.floor(Math.abs(Math.sin(direction * 0.5) * 256));
 
     }
-
 }
+
+let color = new Color(225, 225, 225);

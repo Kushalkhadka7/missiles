@@ -1,6 +1,9 @@
 const MISSILE_ORIGIN = new Vector2(7.5, 10);
 let VELOCITY = 0.01;
 const FLAG = 10;
+let explosion;
+let pool = new Array();
+let pArr = [];
 
 class Missiles {
 
@@ -11,6 +14,7 @@ class Missiles {
         this.turn = 1;
         this.vx;
         this.vy;
+        this.direction = 0;
     }
 
     draw() {
@@ -69,22 +73,60 @@ class Missiles {
         let distance = calcDistance(planeX, planeY, missileX, missileY);
 
         if (distance == true) {
-            console.log('collide');
             collided = true;
+            this.showParticleEffect(missileX, missileY);
         }
     }
 
-    // showParticleEffect(x, y) {
-    //     // color.gradualShift(direction);
-    //     // let particle = new Particles(
-    //     //     x, y,
-    //     //     15,
-    //     //     color.getRGBString(),
-    //     //     0, 0
-    //     // ).draw();
-    // }
+    showParticleEffect(x, y) {
+
+        explosion = setInterval(() => {
+            this.direction += 0.01;
+            color.gradualShift(this.direction);
+
+            for (let index = 0; index < 2; ++index) {
+                let particle = pool.pop();
+
+                if (particle != undefined) {
+
+                    particle.reset(x, y, color.getRGBString());
+                    pArr.push(particle);
+
+                } else {
+
+                    pArr.push(
+                        new Particles(
+                            x, y,
+                            Math.floor(Math.random() * 10 + 10),
+                            color.getRGBString(),
+                            Math.random() * 1 - 0.5,
+                            Math.random() * 1 - 0.5
+                        )
+                    );
+
+                }
+            }
+
+            for (let index = pArr.length - 1; index > -1; --index) {
+
+                let particle = pArr[index];
+
+                particle.updatePosition();
+
+                if (particle.a <= 0) pool.push(pArr.splice(index, 1)[0]);
+
+                particle.draw();
+            }
+        });
+
+        setTimeout(() => {
+            console.log(pool)
+            clearInterval(explosion)
+        }, 2000);
 
 
+
+    }
 }
 
 let missile = new Missiles();
