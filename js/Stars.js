@@ -2,7 +2,7 @@ class Stars {
 
     constructor() {
 
-        this.position = new Vector2(300, 400)
+        this.position = new Vector2(random(100, 1500), random(100, 1500))
         this.dimension = new Vector2(25, 25);
         this.counter = 0;
         this.velocity = 3;
@@ -32,6 +32,10 @@ class Stars {
 
         if (distance == true) {
             bonus = true;
+            console.log('collidee')
+            setTimeout(() => {
+                console.log('a')
+            });
         }
     }
 }

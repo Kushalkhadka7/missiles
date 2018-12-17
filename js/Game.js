@@ -3,17 +3,19 @@ let startGame = false;
 let gameOver = false;
 let collided = false;
 let bonus = false;
+let starScored = 0;
 let volumeOn = true;
 let paused = false;
 let gameOverTimeOut;
 let scoreArray = [];
 
-
 class Game {
     constructor() {
+
         this.startMenu();
         this.frameCount = 0;
         this.seconds = 0;
+
     }
 
     init() {
@@ -35,7 +37,7 @@ class Game {
         game.gameWorld.draw();
         game.gameWorld.update();
 
-        if (startGame == true) {
+        if (startGame == true && gameOver == false) {
 
             game.gameWorld.drawAfterGameStart();
             game.gameWorld.updateAfterGameStart();
@@ -49,10 +51,14 @@ class Game {
 
         reqAnimationFrame = requestAnimationFrame(game.mainloop);
 
-        if (collided == true || bonus == true) {
+        if (collided == true) {
+
             cancelAnimationFrame(reqAnimationFrame);
             startGame = false;
             gameOver = true;
+
+            let pauseBtn = document.getElementById('pause-btn');
+            pauseBtn.style.display = "none";
 
             gameOverTimeOut = setTimeout(() => {
                 game.gameOverMenu();
@@ -67,12 +73,14 @@ class Game {
         let playGame = document.getElementById('play');
         let VON = document.getElementById('v-on');
         let VOFF = document.getElementById('v-off');
+        let pauseBtn = document.getElementById('pause-btn');
+        pauseBtn.style.display = "none";
 
         playGame.addEventListener('click', () => {
             startGame = true;
             gameOver = false;
             startMenuContainer.style.display = "none";
-
+            pauseBtn.style.display = "block";
         });
 
         volumeToggle.addEventListener('click', () => {
@@ -94,7 +102,6 @@ class Game {
 
         let gameOverMenuContainer = document.getElementById('game-over-menu');
         let gameOverPlayBtn = document.getElementById('game-over-play');
-        let pauseBtn = document.getElementById('pause-btn');
         let obtainedScore = document.getElementById('obtained-score');
 
         gameOverMenuContainer.style.display = "block";
@@ -116,6 +123,7 @@ class Game {
             this.seconds++;
         }
 
+        Canvas.context.fillStyle = "#000"
         Canvas.context.fillText(this.seconds, 10, 30);
         Canvas.context.font = "20px Arial";
         Canvas.context.fillText('12', 320, 30);

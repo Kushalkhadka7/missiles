@@ -8,7 +8,8 @@ let pArr = [];
 class Missiles {
 
     constructor() {
-        this.position = new Vector2(100, 100);
+
+        this.position = new Vector2(random(20, 350), random(20, 200));
         this.dimension = new Vector2(15, 20);
         this.rotation = 0;
         this.turn = 1;
@@ -120,12 +121,8 @@ class Missiles {
         });
 
         setTimeout(() => {
-            console.log(pool)
-            clearInterval(explosion)
+            clearInterval(explosion);
         }, 2000);
-
-
-
     }
 }
 

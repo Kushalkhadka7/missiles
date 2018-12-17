@@ -163,8 +163,7 @@ ul{
     width: 30px;
     position: absolute;
     display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 195px;
     top: 15px;
     display: block;
     cursor: pointer;
