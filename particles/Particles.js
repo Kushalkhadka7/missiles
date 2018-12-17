@@ -1,8 +1,9 @@
 class Particles {
 
-    constructor(x, y, radius, rgb_string, vx, vy) {
+    constructor(x, y, radius, id, rgb_string, vx, vy) {
         this.radius = radius;
         this.reset(x, y, rgb_string, vx, vy);
+        this.id = id;
     }
 
     reset(x, y, rgb_string, vx, vy) {

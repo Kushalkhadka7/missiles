@@ -17,6 +17,7 @@ class Missiles {
         this.vy;
         this.direction = 0;
         this.radius = 7.5;
+        this.destroyed = false;
     }
 
     draw() {
@@ -128,6 +129,17 @@ class Missiles {
 
     collisonWithOtherMissile(other) {
 
+        let otherMissileX = other.position.x;
+        let otherMissileY = other.position.y;
+        let thisMissileX = this.position.x;
+        let thisMissileY = this.position.y;
+
+        let distance = calcDistance(otherMissileX, otherMissileY, thisMissileX, thisMissileY, other.radius, this.radius);
+
+        if (distance == true) {
+            this.destroyed = true;
+            other.destroyed = true;
+        }
     }
 }
 

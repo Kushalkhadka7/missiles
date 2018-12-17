@@ -11,6 +11,7 @@ class Plane {
     }
 
     draw() {
+        Canvas.context.fillRect(this.position.x - 30, this.position.y - 30, 60, 60);
         Canvas.drawImagePlane(sprites.plane, this.position, this.dimension, PLANE_ORIGIN, this.rotation)
     }
 

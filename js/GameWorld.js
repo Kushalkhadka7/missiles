@@ -48,24 +48,29 @@ class GameWorld {
         /*for missile generation */
         for (let i = 0; i < missilesArray.length; i++) {
 
-            this.showParticles(
-                missilesArray[i].position.x,
-                missilesArray[i].position.y,
-                random(1, 3),
-                missilesArray[i].vx,
-                missilesArray[i].vy
-            );
+            if (!missilesArray[i].destroyed) {
 
-            missilesArray[i].draw();
-            missilesArray[i].update();
-            missilesArray[i].collisonWithPlane();
+                missilesArray[i].update();
+                missilesArray[i].collisonWithPlane();
 
-            /*for collison of one missile with other*/
-            for (let j = i + 1; j < missilesArray.length; j++) {
-                missilesArray[i].collisonWithOtherMissile(missilesArray[j]);
+                this.showParticles(
+                    missilesArray[i].position.x,
+                    missilesArray[i].position.y,
+                    random(1, 3),
+                    i,
+                    missilesArray[i].vx,
+                    missilesArray[i].vy
+                );
+
+                missilesArray[i].draw();
+
+                for (let j = i + 1; j < missilesArray.length; j++) {
+                    if (!missilesArray[j].destroyed) {
+                        missilesArray[i].collisonWithOtherMissile(missilesArray[j]);
+                    }
+                }
             }
         }
-
         /*for star generation */
         for (let i = 0; i < starArray.length; i++) {
             if (!starArray[i].destroyed) {
@@ -76,7 +81,7 @@ class GameWorld {
         }
     }
 
-    showParticles(x, y, radius, vx, vy) {
+    showParticles(x, y, radius, id, vx, vy) {
 
         this.direction += 0.01;
         this.color.gradualShift(this.direction);
@@ -85,6 +90,7 @@ class GameWorld {
             new Particles(
                 x, y,
                 radius,
+                id,
                 this.color.getRGBString(),
                 vx,
                 vy
@@ -94,11 +100,16 @@ class GameWorld {
         for (let index = particlesArray.length - 1; index > -1; --index) {
 
             let particle = particlesArray[index];
+            // console.log(particle.id);
+            if (missilesArray[particle.id].destroyed) {
 
+                particlesArray.splice(index, 1);
+                continue;
+            }
             particle.updatePosition();
 
             if (particle.a <= 0) {
-                particlesArray.splice(index, 1)[0]
+                particlesArray.splice(index, 1)[0];
             }
 
             particle.draw();
