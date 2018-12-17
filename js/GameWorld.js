@@ -11,11 +11,10 @@ class GameWorld {
 
         this.plane = new Plane();
 
-        // this.missile = new Missiles();
-        // missilesArray.push(this.missile);
-
         this.color = new Color(0, 0, 0);
 
+
+        this.star = new Stars();
         this.direction = 0;
 
         this.counter = 0;
@@ -34,7 +33,9 @@ class GameWorld {
     }
 
     drawAfterGameStart() {
+
         this.counter++;
+        Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
 
         if (this.counter % 200 == 0) {
             this.missile = new Missiles();
@@ -44,10 +45,7 @@ class GameWorld {
             starArray.push(this.star);
         }
 
-        Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
-
-
-
+        /*for missile generation */
         for (let i = 0; i < missilesArray.length; i++) {
 
             this.showParticles(
@@ -61,12 +59,20 @@ class GameWorld {
             missilesArray[i].draw();
             missilesArray[i].update();
             missilesArray[i].collisonWithPlane();
+
+            /*for collison of one missile with other*/
+            for (let j = i + 1; j < missilesArray.length; j++) {
+                missilesArray[i].collisonWithOtherMissile(missilesArray[j]);
+            }
         }
 
+        /*for star generation */
         for (let i = 0; i < starArray.length; i++) {
-            starArray[i].draw();
-            starArray[i].update(this.plane.rotation);
-            starArray[i].starCollisonWithPlane();
+            if (!starArray[i].destroyed) {
+                starArray[i].draw();
+                starArray[i].update(this.plane.rotation);
+                starArray[i].starCollisonWithPlane();
+            }
         }
     }
 

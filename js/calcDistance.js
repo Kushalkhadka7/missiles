@@ -1,12 +1,10 @@
-function calcDistance(X1, Y1, X2, Y2) {
-    let planeX = X1;
-    let planeY = Y1;
-    let missileX = X2;
-    let missileY = Y2;
+function calcDistance(X1, Y1, X2, Y2, R1, R2) {
 
-
-    if ((missileX >= 180 && missileX <= 220) && (missileY >= 280 && missileY <= 320)) {
+    var dX = X1 - X2;
+    var dY = Y1 - Y2;
+    var dist = Math.sqrt((dX * dX) + (dY * dY));
+    if (R1 + R2 > dist) {
         return true;
     }
-
+    return false;
 }

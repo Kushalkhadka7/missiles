@@ -103,9 +103,13 @@ class Game {
         let gameOverMenuContainer = document.getElementById('game-over-menu');
         let gameOverPlayBtn = document.getElementById('game-over-play');
         let obtainedScore = document.getElementById('obtained-score');
+        let yourTime = document.getElementById('scored-content-time');
+        let yourStar = document.getElementById('scored-content-star');
 
         gameOverMenuContainer.style.display = "block";
         obtainedScore.innerHTML = this.seconds;
+        yourStar.innerHTML = `+${starScored}`;
+        yourTime.innerHTML = `${this.seconds}`;
 
         gameOverPlayBtn.addEventListener('click', () => {
             startGame = true;
@@ -126,7 +130,7 @@ class Game {
         Canvas.context.fillStyle = "#000"
         Canvas.context.fillText(this.seconds, 10, 30);
         Canvas.context.font = "20px Arial";
-        Canvas.context.fillText('12', 320, 30);
+        Canvas.context.fillText(starScored, 320, 30);
         Canvas.drawSprites(sprites.star, { x: 350, y: 10 }, { x: 25, y: 25 });
     }
 

@@ -16,6 +16,7 @@ class Missiles {
         this.vx;
         this.vy;
         this.direction = 0;
+        this.radius = 7.5;
     }
 
     draw() {
@@ -71,7 +72,7 @@ class Missiles {
         let missileX = this.position.x + 5;
         let missileY = this.position.y + 5;
 
-        let distance = calcDistance(planeX, planeY, missileX, missileY);
+        let distance = calcDistance(planeX, planeY, missileX, missileY, plane.radius, this.radius);
 
         if (distance == true) {
             collided = true;
@@ -123,6 +124,10 @@ class Missiles {
         setTimeout(() => {
             clearInterval(explosion);
         }, 2000);
+    }
+
+    collisonWithOtherMissile(other) {
+
     }
 }
 
