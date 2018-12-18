@@ -11,8 +11,12 @@ class Plane {
     }
 
     draw() {
-        Canvas.context.fillRect(this.position.x - 30, this.position.y - 30, 60, 60);
-        Canvas.drawImagePlane(sprites.plane, this.position, this.dimension, PLANE_ORIGIN, this.rotation)
+        if (shield) {
+            this.drawShield();
+        }
+        Canvas.drawImagePlane(sprites.plane[0], this.position, this.dimension, PLANE_ORIGIN, this.rotation);
+
+        // gameWorld.showParticles(this.position.x, this.position.y, random(1, 2), 2, 3);
     }
 
     update() {
@@ -25,6 +29,15 @@ class Plane {
 
         this.rotation = Math.atan2(opposite, adajcent);
 
+    }
+
+    drawShield() {
+        Canvas.context.beginPath();
+        Canvas.context.lineWidth = 2;
+        Canvas.context.strokeStyle = 'red';
+        Canvas.context.arc(this.position.x, this.position.y, this.radius + 5, 0, 2 * Math.PI);
+        Canvas.context.lineCap = 'round';
+        Canvas.context.stroke();
     }
 
 }

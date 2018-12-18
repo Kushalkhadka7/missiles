@@ -23,10 +23,13 @@ function loadAssets(callback) {
         return spriteImage;
     }
     sprites.background = loadSprites("background1.jpg");
-    sprites.plane = loadSprites("plane.png");
+    sprites.plane = [loadSprites("plane1.png"), loadSprites("plane2.svg")];
     sprites.missile = loadSprites("2.png");
     sprites.pause = loadSprites("menu-assets/pause.png");
-    sprites.star = loadSprites("menu-assets/star.png")
+    sprites.star = loadSprites("menu-assets/star.png");
+    sprites.shieldImage = loadSprites("shield.png");
+
+    console.log(sprites)
 
     assetsLoadingLoop(callback);
 }

@@ -8,18 +8,21 @@
     width: 400px;
     height: 600px;
     position: relative;
+    /* font-family: 'Pacifico'; */
 }
 
 ul{
     padding: 0;
     margin: 0;
 }
+
 .start-menu,
-.game-over-menu{
+.game-over-menu,
+.model{
     width: 400px;
     height: 600px;
     position: absolute;
-    opacity: 0.8;
+    opacity: 1;
     display: block;
 }
 .top-setting,
@@ -165,7 +168,7 @@ ul{
     display: inline-block;
     left: 195px;
     top: 15px;
-    display: block;
+    display: none;
     cursor: pointer;
 }
 .pause-btn img{

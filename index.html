@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Pacifico&amp;subset=cyrillic" rel="stylesheet"> -->
     <link rel="stylesheet" href="./css/style.css">
     <title>Document</title>
 </head>
@@ -76,19 +77,19 @@
                         <div class="star-image">
                             <img src="./assets/menu-assets/timeicon.png" alt="">
                         </div>
-                        <div class="scored-content">
+                        <div class="scored-content" id='score-total'>
                             +20
                         </div>
                     </div>
                 </li>
             </ul>
             <div class="play-btn" id='game-over-play'>
-                <img src="./assets//menu-assets/play.png" alt="">
+                <img src="./assets/menu-assets/play.png" alt="">
             </div>
         </div>
 
         <div class="bottom-settings clearfix">
-            <div class="home-icon">
+            <div class="home-icon" id="home-icon">
                 <img src="./assets/menu-assets/Home_icon_grey.png" alt="">
             </div>
             <div class="setting-icon">
@@ -100,6 +101,14 @@
     <div class="pause-btn" id="pause-btn">
         <img src="./assets/menu-assets/pause.png" alt="">
     </div>
+    <!-- 
+    <div class="model">
+        <h1>model</h1>
+    </div> -->
+
+    <audio src="./sounds/airplane-fly-by-02.mp3" id="main-sound"></audio>
+    <audio src="./sounds/Bomb+1.mp3" id="collison-sound"></audio>
+
 
 
 
@@ -115,6 +124,7 @@
     <script src="./js/loader.js"></script>
     <script src="./js/calcDistance.js"></script>
     <script src="./js/Stars.js"></script>
+    <script src="./js/MegaStar.js"></script>
     <script src="./js/Plane.js"></script>
     <script src="./particles/Particles.js"></script>
     <script src="./particles/Color.js"></script>

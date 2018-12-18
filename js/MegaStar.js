@@ -1,4 +1,6 @@
-class Stars {
+var timeStarted;
+
+class MegaStar {
 
     constructor() {
 
@@ -11,7 +13,7 @@ class Stars {
     }
 
     draw() {
-        Canvas.drawSprites(sprites.star, this.position, this.dimension);
+        Canvas.drawSprites(sprites.shieldImage, this.position, this.dimension);
     }
 
     update(planeRotation) {
@@ -23,19 +25,25 @@ class Stars {
         this.position.y -= y;
     }
 
-    starCollisonWithPlane() {
-        let planeX = plane.position.x - 20;
-        let planeY = plane.position.y - 20;
+    shieldCollisonWithPlane() {
+        let planeX = plane.position.x;
+        let planeY = plane.position.y;
         let starX = this.position.x;
         let starY = this.position.y;
 
         let distance = calcDistance(planeX, planeY, starX, starY, plane.radius, this.radius);
         if (distance == true) {
-            bonus = true;
             this.destroyed = true;
-            // play sound
-            starScored++;
+            this.shieldOn();
         }
     }
+
+    shieldOn() {
+        shield = true;
+        let timeout = setTimeout(() => {
+            shield = false;
+            clearTimeout(timeout);
+        }, 5000);
+    }
 }
-let star = new Stars();
+let megStar = new MegaStar();

@@ -1,68 +1,99 @@
 let reqAnimationFrame;
 let startGame = false;
 let gameOver = false;
-let collided = false;
 let bonus = false;
 let starScored = 0;
 let volumeOn = true;
 let paused = false;
 let gameOverTimeOut;
 let scoreArray = [];
+let shield = false;
+let collisonSound;
+let mainSound;
 
 class Game {
+
     constructor() {
 
         this.startMenu();
         this.frameCount = 0;
         this.seconds = 0;
-
+        this.highScore = 0;
+        this.pauseBtn = document.getElementById('pause-btn');
+        this.initial = true;
     }
 
     init() {
 
         this.gameWorld = new GameWorld();
+
+        this.pauseBtn.addEventListener('click', () => {
+            paused = !paused;
+            // this.pauseBtn.style.display = 'none';
+            console.log(paused);
+        });
+
+        collisonSound = document.getElementById('collison-sound');
+        collisonSound.volume = 0.1;
+
+        mainSound = document.getElementById('main-sound');
+        mainSound.volume = 0.1;
+
     }
 
     start() {
-
+        // console.log(game.initial);
         game.init();
         game.mainloop();
     }
 
     mainloop(time) {
 
-        time == undefined ? time = 0 : time;
+        // game.playGameSound();
 
-        Canvas.clear(0, 0, Canvas.canvas.width, Canvas.canvas.height);
-        game.gameWorld.draw();
-        game.gameWorld.update();
+        if (!paused) {
 
-        if (startGame == true && gameOver == false) {
+            time == undefined ? time = 0 : time;
 
-            game.gameWorld.drawAfterGameStart();
-            game.gameWorld.updateAfterGameStart();
+            Canvas.clear(0, 0, Canvas.canvas.width, Canvas.canvas.height);
+            game.gameWorld.draw();
+            game.gameWorld.update();
 
-            game.drawControls();
-            game.clacHighScore();
+            if (startGame == true && gameOver == false) {
+
+                game.gameWorld.drawAfterGameStart();
+                game.gameWorld.updateAfterGameStart();
+
+                game.drawControls();
+
+            }
+
+            Mouse.resetMouse();
+
 
         }
-
-        Mouse.resetMouse();
 
         reqAnimationFrame = requestAnimationFrame(game.mainloop);
 
         if (collided == true) {
-
             cancelAnimationFrame(reqAnimationFrame);
             startGame = false;
             gameOver = true;
 
-            let pauseBtn = document.getElementById('pause-btn');
-            pauseBtn.style.display = "none";
-
             gameOverTimeOut = setTimeout(() => {
                 game.gameOverMenu();
             }, 1000);
+            return;
+        }
+
+    }
+
+    playGameSound() {
+        if (volumeOn && !paused) {
+            mainSound.play();
+        }
+        else {
+            mainSound.pause();
         }
     }
 
@@ -73,14 +104,15 @@ class Game {
         let playGame = document.getElementById('play');
         let VON = document.getElementById('v-on');
         let VOFF = document.getElementById('v-off');
-        let pauseBtn = document.getElementById('pause-btn');
-        pauseBtn.style.display = "none";
 
         playGame.addEventListener('click', () => {
-            startGame = true;
-            gameOver = false;
             startMenuContainer.style.display = "none";
-            pauseBtn.style.display = "block";
+            this.pauseBtn.style.display = "block";
+            game.resetGame();
+            if (!game.initial) {
+                game.start();
+            }
+            game.initial = false;
         });
 
         volumeToggle.addEventListener('click', () => {
@@ -105,18 +137,51 @@ class Game {
         let obtainedScore = document.getElementById('obtained-score');
         let yourTime = document.getElementById('scored-content-time');
         let yourStar = document.getElementById('scored-content-star');
+        let homeIcon = document.getElementById('home-icon');
+        let scoreTotal = document.getElementById('score-total');
 
+        game.clacHighScore();
+
+        this.pauseBtn.style.display = 'none';
         gameOverMenuContainer.style.display = "block";
         obtainedScore.innerHTML = this.seconds;
         yourStar.innerHTML = `+${starScored}`;
-        yourTime.innerHTML = `${this.seconds}`;
+        yourTime.innerHTML = `+${this.seconds}`;
+        scoreTotal.innerHTML = `+${this.seconds + starScored}`;
 
         gameOverPlayBtn.addEventListener('click', () => {
-            startGame = true;
-            gameOver = false;
             gameOverMenuContainer.style.display = "none";
-            clearInterval(gameOverTimeOut);
+            clearTimeout(gameOverTimeOut);
+            cancelAnimationFrame(reqAnimationFrame);
+            game.resetGame();
+            game.start();
         });
+
+        homeIcon.addEventListener('click', () => {
+            gameOverMenuContainer.style.display = 'none';
+            document.getElementById('start-menu').style.display = 'block';
+        });
+    }
+
+    resetGame() {
+
+        startGame = true;
+        gameOver = false;
+        collided = false;
+        bonus = false;
+        paused = false;
+        shield = false;
+        missilesArray = [];
+        particlesArray = [];
+        pArr = [];
+        megStarArray = [];
+        starArray = [];
+        this.seconds = 0;
+        starScored = 0;
+    }
+
+    pauseMenu() {
+        console.log('pausemenu')
     }
 
     drawControls() {
@@ -135,9 +200,28 @@ class Game {
     }
 
     clacHighScore() {
+        // this.highScore = localStorage.getItem("highscore");
+
+        // if (this.highscore !== null) {
+        //     if (this.seconds > this.highscore) {
+        //         localStorage.setItem("highscore", this.seconds);
+        //     }
+        // }
+        // else {
+        //     localStorage.setItem("highscore", this.seconds);
+        // }
 
         if (this.seconds > this.highScore) {
             window.localStorage.setItem('highScore', this.seconds);
+        }
+
+        console.log(window.localStorage.getItem('highScore'));
+    }
+
+
+    playSound() {
+        if (volumeOn) {
+            //play sound
         }
     }
 }

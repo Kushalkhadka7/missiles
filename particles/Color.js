@@ -10,11 +10,10 @@ class Color {
     }
 
     gradualShift(direction) {
-        this.r = Math.floor(Math.abs(Math.cos(direction * 0.75) * 256));
-        this.g = Math.floor(Math.abs(Math.sin(direction * 0.25) * 256));
-        this.b = Math.floor(Math.abs(Math.sin(direction * 0.5) * 256));
-
+        this.r = Math.floor(Math.abs(Math.cos(direction * 0.75) * 225));
+        this.g = Math.floor(Math.abs(Math.sin(direction * 0.25) * 225));
+        this.b = Math.floor(Math.abs(Math.sin(direction * 0.5) * 225));
     }
 }
 
-let color = new Color(225, 225, 225);
+let color = new Color(255, 255, 255);
