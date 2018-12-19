@@ -31,6 +31,19 @@ class Canvas2D {
         this.context.drawImage(image, -origin.x, -origin.y, dimension.x, dimension.y);
         this.context.restore();
     }
+
+    drawPointOnPlane(position, dimension, origin, rotation = 0) {
+
+        position == undefined ? position = new Vector2() : position;
+
+        origin == undefined ? origin = new Vector2() : origin
+
+        this.context.save();
+        this.context.translate(position.x, position.y);
+        this.context.rotate(rotation);
+        this.context.fillRect(origin.x, origin.y, dimension.x, dimension.y);
+        this.context.restore();
+    }
 }
 
 let Canvas = new Canvas2D();

@@ -41,7 +41,7 @@
             <div class="home-icon">
                 <img src="./assets/menu-assets/Home_icon_grey.png" alt="">
             </div>
-            <div class="setting-icon">
+            <div class="setting-icon" id="settings">
                 <img src="./assets/menu-assets/setting-567-722008.png" alt="">
             </div>
         </div>
@@ -101,10 +101,49 @@
     <div class="pause-btn" id="pause-btn">
         <img src="./assets/menu-assets/pause.png" alt="">
     </div>
-    <!-- 
-    <div class="model">
-        <h1>model</h1>
-    </div> -->
+
+    <div class="model" id="model">
+        <div class="model-header clearfix">
+            <div class="header-text">
+                header
+            </div>
+            <div class="cancel-img" id="cancel-image">
+                <img src="./assets/cancel.png" alt="">
+            </div>
+        </div>
+
+        <div class="model-body">
+            <div class="plane-content clearfix">
+                <div class="content-text">
+                    select plane
+                </div>
+                <div class="content">
+                    <img src=" ./assets/plane1.png" alt="">
+                </div>
+                <div class="content">
+                    <img src=" ./assets/plane1.png" alt="">
+                </div>
+                <div class="content">
+                    <img src="./assets/plane1.png" alt="">
+                </div>
+            </div>
+
+            <div class="missile-content clearfix">
+                <div class="content-text last">
+                    select missile
+                </div>
+                <div class="content">
+                    <img src=" ./assets/2.png" alt="">
+                </div>
+                <div class="content">
+                    <img src=" ./assets/2.png" alt="">
+                </div>
+                <div class="content">
+                    <img src=" ./assets/2.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
     <audio src="./sounds/airplane-fly-by-02.mp3" id="main-sound"></audio>
     <audio src="./sounds/Bomb+1.mp3" id="collison-sound"></audio>
@@ -129,6 +168,7 @@
     <script src="./particles/Particles.js"></script>
     <script src="./particles/Color.js"></script>
     <script src="./js/GameWorld.js"></script>
+    <script src="./js/setIndexToImage.js"></script>
     <script src="./js/Game.js"></script>
     <script>
         loadAssets(game.start);

@@ -11,7 +11,7 @@ class Missiles {
 
     constructor() {
 
-        this.position = new Vector2(random(100, 350), random(0, 100));
+        this.position = new Vector2(random(200, 300), random(0, 100));
         this.dimension = new Vector2(15, 20);
         this.rotation = 0;
         this.turn = 1;
@@ -24,12 +24,14 @@ class Missiles {
         // this.missileRotation = null;
         this.curveX = 0;
         this.curveIndex = 0;
+        this.planeRotation;
+        this.deltaRotation = 1;
         this.handleUpdate();
     }
 
     draw() {
 
-        Canvas.drawImagePlane(sprites.missile, this.position, this.dimension, MISSILE_ORIGIN, this.rotation);
+        Canvas.drawImagePlane(sprites.missile[2], this.position, this.dimension, MISSILE_ORIGIN, this.rotation);
     }
 
     easeIn(a, b, percent) {
@@ -52,22 +54,24 @@ class Missiles {
         for (n = 0; n < 20; n++) {
             let tempCurve = this.easeIn(0, curve, n / 20);
             this.curves.push(tempCurve);
-            // this.addSegment(tempCurve, this.easeInOut(startY, endY, n/total));    
+            // this.addSegment(tempCurve, this.easeInOut(startY, endY, n/total));
         }
         for (n = 0; n < 20; n++) {
             let tempCurve = this.easeInOut(curve, 0, n / 20);
             this.curves.push(tempCurve);
-            // this.addSegment(tempCurve, this.easeInOut(startY, endY, (enter+hold+n)/total));      
+            // this.addSegment(tempCurve, this.easeInOut(startY, endY, (enter+hold+n)/total));
         }
         // return curves;
     }
 
 
-
     update(planeRotation) {
 
-        let targetX = Mouse.position.x - this.position.x;
-        let targetY = Mouse.position.y - this.position.y;
+        this.planeRotation = planeRotation;
+
+        let targetX = plane.pointPosition.x - this.position.x;
+        let targetY = plane.pointPosition.y - this.position.y;
+
 
         let TAU = Math.PI * 2;
         let angle = Math.atan2(targetY, targetX);
@@ -95,7 +99,18 @@ class Missiles {
             }
         }
 
-        // console.log(planeRotation, this.rotation)
+        let diff = Math.abs(this.planeRotation) - Math.abs(this.rotation);
+
+        // if (Math.abs(diff) <= 1) {
+        //     console.log('he')
+        //     if (this.rotation != this.planeRotation) {
+        //         this.rotation += this.deltaRotation;
+        //         this.rotation = planeRotation;
+        //     }
+
+        // }
+
+        this.rotation = planeRotation;
         this.vx = Math.cos(this.rotation);
         this.vy = Math.sin(this.rotation);
 
@@ -121,6 +136,10 @@ class Missiles {
         }
     }
 
+    // updatePosition() {
+
+    // }
+
     collisonWithPlane() {
 
         let planeX = plane.position.x;
@@ -138,7 +157,6 @@ class Missiles {
 
             } else if (!shield) {
                 this.showParticleEffect(missileX, missileY);
-
                 this.destroyed = true;
                 collided = true;
             }
@@ -148,8 +166,8 @@ class Missiles {
     showParticleEffect(x, y) {
 
         explosion = setInterval(() => {
-            // this.direction += 0.01;
-            // color.gradualShift(this.direction);
+            this.direction += 0.9;
+            color.gradualShift(this.direction);
             for (let index = 0; index < 1; ++index) {
                 let particle = pool.pop();
 
@@ -173,7 +191,7 @@ class Missiles {
                 }
             }
 
-            for (let index = pArr.length - 1; index > -1; --index) {
+            for (let index = pArr.length - 2; index > -1; --index) {
 
                 let particle = pArr[index];
 
@@ -186,7 +204,7 @@ class Missiles {
         });
 
         setTimeout(() => {
-            clearTimeout(explosion);
+            clearInterval(explosion);
         }, 1000);
     }
 

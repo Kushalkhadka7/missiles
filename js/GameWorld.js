@@ -97,8 +97,8 @@ class GameWorld {
 
     showParticles(x, y, radius, id = null, vx, vy) {
 
-        // this.direction += 0.01;
-        // this.color.gradualShift(this.direction);
+        this.direction += 0.01;
+        this.color.gradualShift(this.direction);
 
         particlesArray.push(
             new Particles(
@@ -125,7 +125,7 @@ class GameWorld {
                 particlesArray.splice(index, 1)[0];
             }
 
-            particle.drawPath();
+            particle.draw();
         }
     }
 

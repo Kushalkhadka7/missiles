@@ -10,6 +10,7 @@ let scoreArray = [];
 let shield = false;
 let collisonSound;
 let mainSound;
+let indexOfImage;
 
 class Game {
 
@@ -21,6 +22,7 @@ class Game {
         this.highScore = 0;
         this.pauseBtn = document.getElementById('pause-btn');
         this.initial = true;
+        this.indexOfImage = indexOfImage;
     }
 
     init() {
@@ -104,6 +106,10 @@ class Game {
         let playGame = document.getElementById('play');
         let VON = document.getElementById('v-on');
         let VOFF = document.getElementById('v-off');
+        let settings = document.getElementById('settings');
+        let model = document.getElementById('model');
+        let cancelModel = document.getElementById('cancel-image');
+        let immages = document.getElementsByClassName('content');
 
         playGame.addEventListener('click', () => {
             startMenuContainer.style.display = "none";
@@ -128,6 +134,26 @@ class Game {
             }
         });
 
+        settings.addEventListener('click', () => {
+            startMenuContainer.style.opacity = '0.5';
+            model.style.display = 'block';
+        });
+
+        cancelModel.addEventListener('click', () => {
+            model.style.display = 'none';
+            startMenuContainer.style.opacity = '1';
+        });
+
+        for (let i = 0; i < immages.length; i++) {
+            immages[i].addEventListener('click', (e) => {
+                game.setIndexofImage(i)
+            });
+        }
+
+    }
+
+    setIndexofImage(i) {
+        indexOfImage = i;
     }
 
     gameOverMenu() {
@@ -216,13 +242,6 @@ class Game {
         }
 
         console.log(window.localStorage.getItem('highScore'));
-    }
-
-
-    playSound() {
-        if (volumeOn) {
-            //play sound
-        }
     }
 }
 

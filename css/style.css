@@ -17,8 +17,7 @@ ul{
 }
 
 .start-menu,
-.game-over-menu,
-.model{
+.game-over-menu{
     width: 400px;
     height: 600px;
     position: absolute;
@@ -172,5 +171,65 @@ ul{
     cursor: pointer;
 }
 .pause-btn img{
+    width: 100%;
+}
+
+.model{
+background-color: #fff;
+    position: absolute;
+    bottom: 12%;
+    left: 12%;
+    width: 300px;
+    margin: 0 auto;
+    display: none;
+}
+.model-header{
+   background: #e13729;
+    font-size: 25px;
+    color: white;
+    text-transform: capitalize;
+    padding: 5px 0 5px 8px;
+}
+.model-body{
+    padding-bottom: 10px;
+}
+
+.model .content{
+    width: 30%;
+    background: #e6e6e6;
+    float: left;
+    margin: 0 0 0 7px;
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+.header-text{
+    float: left;
+}
+.cancel-img{
+    float:right;
+    width: 30px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.cancel-img img{
+    width: 100%;
+}
+
+.content-text{
+    font-size: 18px;
+    text-transform: capitalize;
+    margin: 10px 5px 5px 7px;
+}
+.last{
+    border-top: 1px solid #000;
+    padding-top: 10px;
+}
+
+.content:hover{
+    box-shadow: 9px 7px 73px 0px rgba(0,0,0,0.75);
+}
+
+.content img{
     width: 100%;
 }
