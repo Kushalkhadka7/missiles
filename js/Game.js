@@ -7,7 +7,7 @@ let volumeOn = true;
 let paused = false;
 let gameOverTimeOut;
 let scoreArray = [];
-let shield = false;
+let shieldCollected = false;
 let collisonSound;
 let mainSound;
 
@@ -221,7 +221,7 @@ class Game {
         collided = false;
         bonus = false;
         paused = false;
-        shield = false;
+        shieldCollected = false;
         missilesArray = [];
         particlesArray = [];
         pArr = [];

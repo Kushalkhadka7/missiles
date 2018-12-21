@@ -200,16 +200,16 @@ class Missiles {
         let distance = calcDistance(planeX, planeY, missileX, missileY, plane.radius, this.radius);
 
         if (distance == true) {
-            if (shield) {
+            if (shieldCollected) {
                 this.showParticleEffect(missileX, missileY);
-                this.destroyed = true;
+                this.destroyed = false;
                 collided = false;
 
 
-            } else if (!shield) {
+            } else if (!shieldCollected) {
                 this.showParticleEffect(missileX, missileY);
                 this.destroyed = true;
-                collided = true;
+                collided = false;
                 // console.log('sssss');
             }
         }

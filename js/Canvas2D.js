@@ -1,6 +1,7 @@
 /**
  * access the HTML5 canvas element
  * access the context of the canvas
+ * draws assest to the canvas
  * @class Canvas2D
  */
 class Canvas2D {
@@ -9,7 +10,6 @@ class Canvas2D {
         this.canvas = document.getElementById('screen');
         this.context = this.canvas.getContext('2d', { alpha: false });
     }
-
 
     /**
      * clear the canvas
@@ -20,16 +20,14 @@ class Canvas2D {
      * @memberof Canvas2D
      */
     clear(x, y, height, width) {
-
         this.context.clearRect(x, y, width, height);
     }
-
 
     /**
      * draw sprites on canvas
      * detects the given position is undefined or not
-     * @param {*} image=src of image to be drawn
-     * @param {*} position=positon where to draw the image
+     * @param {*} image=src of image to be drawn on the canvas
+     * @param {*} position=positon where to draw the image on canvas
      * @param {*} dimension=width and height of the image
      * @memberof Canvas2D
      */
@@ -41,10 +39,8 @@ class Canvas2D {
 
     }
 
-
     /**
      * draw sprites on canvas
-     * detects the given position is undefined or not
      * translates the canvas on the given points
      * draws the image on given origin
      * detects either the position and origin are undefined if undefined resets them to 0
@@ -52,7 +48,8 @@ class Canvas2D {
      * @param {*} position=coordinates to translate the current origin of canvas to the given point
      * @param {*} dimension=width and height of the image
      * @param {*} origin=positon where to draw the image
-     * @param {number} [rotation=0]=angle in radians by which the canvas image is roatatedgame
+     * @param {number} [rotation=0]=angle in radians by which the canvas image is roatated in game
+     * restore the current translation of the canvas to canvas default
      * @memberof Canvas2D
      */
     drawImagePlane(image, position, dimension, origin, rotation = 0) {
@@ -68,18 +65,18 @@ class Canvas2D {
         this.context.restore();
     }
 
-    drawPointOnPlane(position, dimension, origin, rotation = 0) {
+    // drawPointOnPlane(position, dimension, origin, rotation = 0) {
 
-        position == undefined ? position = new Vector2() : position;
+    //     position == undefined ? position = new Vector2() : position;
 
-        origin == undefined ? origin = new Vector2() : origin
+    //     origin == undefined ? origin = new Vector2() : origin
 
-        this.context.save();
-        this.context.translate(position.x, position.y);
-        this.context.rotate(rotation);
-        this.context.fillRect(origin.x, origin.y, dimension.x, dimension.y);
-        this.context.restore();
-    }
+    //     this.context.save();
+    //     this.context.translate(position.x, position.y);
+    //     this.context.rotate(rotation);
+    //     this.context.fillRect(origin.x, origin.y, dimension.x, dimension.y);
+    //     this.context.restore();
+    // }
 }
 
 let Canvas = new Canvas2D();

@@ -1,16 +1,14 @@
-let sprites = {};
 let sounds = {};
-let chooseMissiles = {};
+let sprites = {};
 let assetStillLoading = 0;
 
-
 /**
- *function to track either all the assets to the game are loaded or not
- *if the assesta are still loading it repeats
- *when the loading process is finished it runs the callback function
+ * function to track either all the assets on the game are loaded or not
+ * if the assesta are still loading it repeats until all the assets are loaded
+ * when the loading process is finished it runs the callback function which is game.start
  * @param {*} callback
  */
-function assetsLoadingLoop(callback) {
+let assetsLoadingLoop = (callback) => {
 
     if (assetStillLoading) {
         requestAnimationFrame(assetsLoadingLoop.bind(this, callback));
@@ -19,46 +17,41 @@ function assetsLoadingLoop(callback) {
     }
 }
 
-
 /**
  * function to load sprites and sounds in game
  * takes the callback and invokes the assetsLoadingLoop function
  * loads all game assets and makes their corresponding objects
  * @param {*} callback
  */
-function loadAssets(callback) {
+let loadAssets = (callback) => {
 
-    function loadSprites(fileName) {
+    loadSprites = (fileName) => {
         assetStillLoading++;
 
-        let spriteImage = new Image();
-        spriteImage.src = "../assets/" + fileName;
+        const SPRITE_IMAGE = new Image();
+        SPRITE_IMAGE.src = "../assets/" + fileName;
 
-        spriteImage.onload = function () {
+        SPRITE_IMAGE.onload = function () {
             assetStillLoading--;
         }
-        return spriteImage;
+        return SPRITE_IMAGE;
     }
 
-    function loadSounds(id) {
-        return document.getElementById(id)
-    }
+    loadSounds = id => document.getElementById(id);
 
-
-    sprites.background = loadSprites("background1.jpg");
     // sprites.background = loadSprites("newbackground.jpg");
+    sprites.shieldImage = loadSprites("shield.png");
+    sprites.star = loadSprites("menu-assets/star.png");
+    sprites.background = loadSprites("background1.jpg");
+    sprites.pause = loadSprites("menu-assets/pause.png");
     sprites.plane = [loadSprites("plane1.png"), loadSprites("plane2.svg"), loadSprites("plane2.svg")];
     sprites.missile = [loadSprites("missile2.png"), loadSprites("missile3.png"), loadSprites("missile3.png")];
-    sprites.pause = loadSprites("menu-assets/pause.png");
-    sprites.star = loadSprites("menu-assets/star.png");
-    sprites.shieldImage = loadSprites("shield.png");
 
     sounds.mainSound = loadSounds('main-sound');
+    sounds.missileSound = loadSounds('missile-sound');
     sounds.collisonSound = loadSounds('collison-sound');
     sounds.starCollectionSound = loadSounds('star-collection');
-    sounds.missileSound = loadSounds('missile-sound');
 
     assetsLoadingLoop(callback);
 }
 
-// console.log(sprites)
