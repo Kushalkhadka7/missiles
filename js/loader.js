@@ -47,8 +47,8 @@ function loadAssets(callback) {
 
     sprites.background = loadSprites("background1.jpg");
     // sprites.background = loadSprites("newbackground.jpg");
-    sprites.plane = [loadSprites("plane1.png"), loadSprites("plane2.svg")];
-    sprites.missile = [loadSprites("missile2.png"), loadSprites("missile3.png")];
+    sprites.plane = [loadSprites("plane1.png"), loadSprites("plane2.svg"), loadSprites("plane2.svg")];
+    sprites.missile = [loadSprites("missile2.png"), loadSprites("missile3.png"), loadSprites("missile3.png")];
     sprites.pause = loadSprites("menu-assets/pause.png");
     sprites.star = loadSprites("menu-assets/star.png");
     sprites.shieldImage = loadSprites("shield.png");
@@ -61,4 +61,4 @@ function loadAssets(callback) {
     assetsLoadingLoop(callback);
 }
 
-console.log(sprites)
+// console.log(sprites)

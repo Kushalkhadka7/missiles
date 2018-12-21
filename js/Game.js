@@ -10,8 +10,7 @@ let scoreArray = [];
 let shield = false;
 let collisonSound;
 let mainSound;
-// let choosePlanes = {};
-// let chooseMissiles = {};
+
 
 class Game {
 
@@ -23,7 +22,6 @@ class Game {
         this.highScore = 0;
         this.pauseBtn = document.getElementById('pause-btn');
         this.initial = true;
-        this.indexOfImage = indexOfImage;
     }
 
     init() {
@@ -49,14 +47,13 @@ class Game {
     }
 
     mainloop(time) {
-
-        // game.playGameSound();
+        game.playGameSound();
 
         if (!paused) {
 
             time == undefined ? time = 0 : time;
 
-            Canvas.clear(0, 0, Canvas.canvas.width, Canvas.canvas.height);
+            //Canvas.clear(0, 0, Canvas.canvas.width, Canvas.canvas.height);
             game.gameWorld.draw();
             game.gameWorld.update();
 
@@ -91,8 +88,17 @@ class Game {
 
         if (volumeOn && !paused) {
             sounds.mainSound.play();
-            if (collided) { sounds.collisonSound.play(); }
+            if (collided || missile.destroyed) { sounds.collisonSound.play(); }
             if (starScored) { sounds.starCollectionSound.play(); }
+
+            let distance = calcDistance(
+                plane.position.x,
+                plane.position.y,
+                missile.position.x,
+                missile.position.y,
+                100, 5
+            );
+            if (distance) { sounds.missileSound.play(); }
         }
         else {
             sounds.mainSound.pause();
@@ -107,17 +113,20 @@ class Game {
         this.pauseBtn.addEventListener('click', () => {
             paused = !paused;
             resumeBtn.style.display = "block";
+            this.pauseBtn.style.display = "none";
         });
 
         resumeBtn.addEventListener('click', () => {
             paused = !paused;
             resumeBtn.style.display = "none";
+            this.pauseBtn.style.display = "block";
         });
     }
 
     startMenu() {
 
         let startMenuContainer = document.getElementById('start-menu');
+        let displayHighScore = document.getElementById('high-score-display-startmenu');
         let volumeToggle = document.getElementById('v-toggle');
         let playGame = document.getElementById('play');
         let VON = document.getElementById('v-on');
@@ -126,6 +135,8 @@ class Game {
         let model = document.getElementById('model');
         let cancelModel = document.getElementById('cancel-image');
         let immages = document.getElementsByClassName('content');
+
+        displayHighScore.innerHTML = `${localStorage.getItem('highScore') == null ? 0 : localStorage.getItem('highScore')}`
 
         playGame.addEventListener('click', () => {
             startMenuContainer.style.display = "none";
@@ -162,13 +173,10 @@ class Game {
 
         for (let i = 0; i < immages.length; i++) {
             immages[i].addEventListener('click', (e) => {
-                indexOfImage = i;
+                if (i <= 2) { indexOfPlane = 1 }
+                indexOfMissiles = i;
             });
         }
-    }
-
-    setIndexofImage(i) {
-        indexOfImage = i;
     }
 
     gameOverMenu() {
@@ -176,12 +184,14 @@ class Game {
         let gameOverMenuContainer = document.getElementById('game-over-menu');
         let gameOverPlayBtn = document.getElementById('game-over-play');
         let obtainedScore = document.getElementById('obtained-score');
+        let yourScoreText = document.getElementById('your-score');
         let yourTime = document.getElementById('scored-content-time');
         let yourStar = document.getElementById('scored-content-star');
         let homeIcon = document.getElementById('home-icon');
         let scoreTotal = document.getElementById('score-total');
+        let bestScore = document.getElementById('best-score-banner');
 
-        game.clacHighScore();
+        game.clacHighScore(yourScoreText, bestScore);
 
         this.pauseBtn.style.display = 'none';
         gameOverMenuContainer.style.display = "block";
@@ -230,30 +240,23 @@ class Game {
             this.seconds++;
         }
 
+        let min = Math.floor(this.seconds / 60);
+        let sec = this.seconds - min * 60;
+
         Canvas.context.fillStyle = "#000"
-        Canvas.context.fillText(this.seconds, 10, 30);
+        Canvas.context.fillText(`${min}:${sec}`, 10, 30);
         Canvas.context.font = "20px Arial";
         Canvas.context.fillText(starScored, 320, 30);
         Canvas.drawSprites(sprites.star, { x: 350, y: 10 }, { x: 25, y: 25 });
     }
 
-    clacHighScore() {
-        // this.highScore = localStorage.getItem("highscore");
-
-        // if (this.highscore !== null) {
-        //     if (this.seconds > this.highscore) {
-        //         localStorage.setItem("highscore", this.seconds);
-        //     }
-        // }
-        // else {
-        //     localStorage.setItem("highscore", this.seconds);
-        // }
-
-        if (this.seconds > this.highScore) {
-            window.localStorage.setItem('highScore', this.seconds);
+    clacHighScore(yourScoreText, bestScore) {
+        if (this.seconds > localStorage.getItem('highScore')) {
+            localStorage.setItem('highScore', this.seconds);
+            let savedScore = localStorage.getItem('highScore');
+            yourScoreText.style.display = 'none';
+            bestScore.style.display = 'block';
         }
-
-        console.log(window.localStorage.getItem('highScore'));
     }
 }
 

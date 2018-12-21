@@ -1,5 +1,5 @@
 const MISSILE_ORIGIN = new Vector2(7.5, 10);
-let VELOCITY = 1;
+let VELOCITY = 2;
 const FLAG = 10;
 let explosion;
 let pool = new Array();
@@ -7,6 +7,7 @@ let pArr = [];
 let collided = false;
 let vectorArray = [];
 let dxT, dyT;
+let indexOfMissiles = 0;
 
 class Missiles {
 
@@ -28,12 +29,16 @@ class Missiles {
         this.planeRotation;
         this.deltaRotation = 1;
         this.length;
+        this.rotationCounter = 0;
+        this.previousRotaion;
         this.handleUpdate();
     }
 
     draw() {
 
-        Canvas.drawImagePlane(sprites.missile[0], this.position, this.dimension, MISSILE_ORIGIN, this.rotation);
+        //Canvas.drawImagePlane(sprites.missile[indexOfMissiles], this.position, this.dimension, MISSILE_ORIGIN, this.rotation);
+        Canvas.context.fillStyle = 'black';
+        Canvas.context.fillRect(this.position.x, this.position.y, 25, 25);
     }
 
     easeIn(a, b, percent) {
@@ -73,8 +78,12 @@ class Missiles {
 
         // dxT = planeRotation;
 
+        Mouse.position == undefined ? Mouse.position = new Vector2(this.position.x, this.position.y) : Mouse.position;
         let targetX = (plane.position.x) - this.position.x;
         let targetY = (plane.position.y) - this.position.y;
+
+        // console.log(targetX, targetY);
+        // console.log(plane.rotation, game.gameWorld.previousPlaneRotation);
 
         this.length = Math.sqrt(targetX * targetX + targetY * targetY);
 
@@ -115,21 +124,44 @@ class Missiles {
         //     this.rotation -= planeRotation;
         // }
 
-        let diff = this.rotation - planeRotation;
-        if (Math.abs(diff) >= 0.5) {
-            if (diff < 0 && this.position.x <= plane.position.x) {
-                this.position.x += 3 * diff;
-            }
-            else if (this.position.x >= plane.position.x) {
-                this.position.x -= 3 * diff;
-            }
+        // let diff = this.rotation - planeRotation;
+        // if (Math.abs(diff) >= 0.5) {
+        //     if (diff < 0 && this.position.x <= plane.position.x) {
+        //         this.position.x += 3 * diff;
+        //     }
+        //     else if (this.position.x >= plane.position.x) {
+        //         this.position.x -= 3 * diff;
+        //     }
 
+        // }
+
+
+        let perctnt = planeRotation * 0.8;
+        // console.log(this.rotationCounter)
+        // console.log(this.rotation, plane.rotation);x
+        if (this.length <= 200) {
+            if (this.rotationCounter <= 0) {
+                var direction = game.gameWorld.previousPlaneRotation - plane.rotation;
+                if (direction !== 0) {
+                    var pos = direction > 0 ? 1 : -1;
+                    this.previousRotaion = direction * 5;
+                    this.rotation += this.previousRotaion;
+                    this.vx = Math.cos(this.rotation);
+                    this.vy = Math.sin(this.rotation);
+                }
+            } else if (this.rotationCounter < 120) {
+
+                this.rotation += this.previousRotaion;
+                this.vx = Math.cos(this.rotation);
+                this.vy = Math.sin(this.rotation);
+            }
+        } else {
+            this.vx = Math.cos(this.rotation);
+            this.vy = Math.sin(this.rotation);
         }
+        let R = 5;
 
-        // this.rotation = planeRotation;
 
-        this.vx = Math.cos(this.rotation);
-        this.vy = Math.sin(this.rotation);
 
 
         // let y = Math.sin(planeRotation);
@@ -146,8 +178,8 @@ class Missiles {
         // this.position.x += x;
         // this.position.y += y;
 
-        this.curveX += this.curves[this.curveIndex];
-        this.curveIndex++;
+        // this.curveX += this.curves[this.curveIndex];
+        // this.curveIndex++;
 
         // if (VELOCITY < 5) {
         //     VELOCITY += 0.01;
@@ -173,10 +205,12 @@ class Missiles {
                 this.destroyed = true;
                 collided = false;
 
+
             } else if (!shield) {
                 this.showParticleEffect(missileX, missileY);
                 this.destroyed = true;
                 collided = true;
+                // console.log('sssss');
             }
         }
     }
@@ -184,6 +218,8 @@ class Missiles {
     showParticleEffect(x, y) {
 
         explosion = setInterval(() => {
+
+            // console.log(x, y)
             // this.direction += 0.9;
             // color.gradualShift(this.direction);
             for (let index = 0; index < 1; ++index) {
@@ -236,11 +272,12 @@ class Missiles {
         let distance = calcDistance(otherMissileX, otherMissileY, thisMissileX, thisMissileY, other.radius, this.radius);
 
         if (distance == true) {
-            this.showParticleEffect(thisMissileX, thisMissileY);
 
+            this.showParticleEffect(thisMissileX, thisMissileY);
             this.destroyed = true;
             other.destroyed = true;
             // play sound
+            console.log('missss');
         }
     }
 }

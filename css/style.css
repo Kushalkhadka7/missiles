@@ -8,6 +8,7 @@
     width: 400px;
     height: 600px;
     position: relative;
+    /* margin: 0 auto; */
 }
 
 ul{
@@ -134,16 +135,17 @@ ul{
     padding-left: 0;
 }
 .middle-content{
-    padding: 100px 0 0 0;
+    padding: 80px 0 0 0;
 }
 .middle-content ul li{
-    width: 40%;
+    width: 45%;
     margin: 0 auto;
     text-align: center;
     list-style-type: none;
     font-size: 30px;
     font-weight: bold;
     padding: 5px 0;
+    font-family: cursive;
 }
 .scored-content{
     float: right;
@@ -151,17 +153,34 @@ ul{
     font-size: 20px;
 }
 
+#your-score{
+    text-align: center;
+    font-size: 40px;
+    font-family: cursive;
+    font-weight: bold;
+    padding-bottom: 10px;
+
+}
+#best-score-banner{
+    display: block;
+    width: 250px;
+    margin: 0 auto;
+}
+#best-score-banner img{
+    width: 100%;
+}
+
 .middle-content ul li:last-child{
     border-top: 1px solid #000;
 }
-.middle-content ul li:nth-child(even){
+.middle-content ul li:nth-child(odd){
     padding-bottom: 30px;
 }
 .middle-content .play-btn{
     padding-top: 50px;
 }
 .game-over-menu .bottom-settings{
-    padding-top: 45px;
+    padding-top: 25px;
 }
 .game-over-menu .middle-content .play-btn{
     padding-top: 45px;

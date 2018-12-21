@@ -2,6 +2,7 @@
 *   this class takes two numbers
 *   returns the numbers as object
 *   if the given numbers are undefined returns default value 0
+*   used for the initiation of position,dimensions
 *   @class Vector2
 */
 class Vector2 {

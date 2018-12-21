@@ -1,7 +1,7 @@
 
 /**
  *  Handles mouse events
- *  tracks the mouse cursor movements and generates x and y co-ordinates
+ *  tracks the mouse cursor movements and returns x and y co-ordinates
  *  tracks either the mosue buttons are pressed or not
  *  @class MouseHandler
  */
@@ -19,8 +19,9 @@ class MouseHandler {
     }
 
     /**
-     *function tracks mouse movements
-     * @param {*} event = mouse event
+     * function tracks mouse movements
+     * @param {*} event = mouse movement event
+     * x and y are the co-ordinates of the mouse cursor
      * @memberof MouseHandler
      */
     handleMouseMove(event) {
@@ -61,7 +62,6 @@ class MouseHandler {
     //         Mouse.right.down = false;
     //     }
     // }
-
 
     /**
      *reset the mouse buttons state

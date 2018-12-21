@@ -14,18 +14,25 @@ class GameWorld {
         this.direction = 0;
 
         this.counter = 0;
+
+        this.previousPlaneRotation = 0;
+
+        this.previouscounter = 0
     }
 
     draw() {
         // console.log(indexOfImage)
         background.draw();
-        plane.draw(indexOfImage);
+        plane.draw();
     }
 
     update() {
-
         background.update(plane.rotation);
         plane.update();
+        this.previouscounter++;
+
+        this.previousPlaneRotation = this.previouscounter % 2 === 0 ? plane.rotation : this.previousPlaneRotation;
+
     }
 
     drawAfterGameStart() {
@@ -34,7 +41,7 @@ class GameWorld {
 
         Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
 
-        if (this.counter % 200 == 0) {
+        if (this.counter % 300 == 0) {
             this.missile = new Missiles();
             missilesArray.push(this.missile);
 

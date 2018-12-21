@@ -52,7 +52,7 @@ class Canvas2D {
      * @param {*} position=coordinates to translate the current origin of canvas to the given point
      * @param {*} dimension=width and height of the image
      * @param {*} origin=positon where to draw the image
-     * @param {number} [rotation=0]=angle in radians by which the canvas image is roatated
+     * @param {number} [rotation=0]=angle in radians by which the canvas image is roatatedgame
      * @memberof Canvas2D
      */
     drawImagePlane(image, position, dimension, origin, rotation = 0) {
