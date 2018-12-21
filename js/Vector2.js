@@ -1,6 +1,14 @@
-function Vector2(x = 0, y = 0) {
+/**
+*   this class takes two numbers
+*   returns the numbers as object
+*   if the given numbers are undefined returns default value 0
+*   @class Vector2
+*/
+class Vector2 {
 
-    this.x = typeof x !== undefined ? x : 0;
-    this.y = typeof y !== undefined ? y : 0;
+    constructor(x = 0, y = 0) {
 
+        this.x = typeof x !== undefined ? x : 0;
+        this.y = typeof y !== undefined ? y : 0;
+    }
 }

@@ -1,5 +1,7 @@
-function random(min, max) {
-    // return Math.floor(Math.random() * (max - min + 1) + min);
-    return Math.floor(Math.random() * max) + min;
-}
+/**
+ * random function generates any random number between the two numbers given
+*/
+
+random = (min, max) => Math.floor(Math.random() * max) + min;
+
 

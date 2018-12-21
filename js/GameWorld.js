@@ -8,10 +8,6 @@ class GameWorld {
 
     constructor() {
 
-        this.background = new Background();
-
-        this.plane = new Plane();
-
         this.color = new Color(225, 225, 225);
 
         this.star = new Stars();
@@ -21,15 +17,15 @@ class GameWorld {
     }
 
     draw() {
-
-        this.background.draw();
-        this.plane.draw();
+        // console.log(indexOfImage)
+        background.draw();
+        plane.draw(indexOfImage);
     }
 
     update() {
 
-        this.background.update(this.plane.rotation);
-        this.plane.update();
+        background.update(plane.rotation);
+        plane.update();
     }
 
     drawAfterGameStart() {
@@ -56,7 +52,7 @@ class GameWorld {
 
             if (!missilesArray[i].destroyed) {
 
-                missilesArray[i].update(this.plane.rotation);
+                missilesArray[i].update(plane.rotation);
 
                 this.showParticles(
                     missilesArray[i].position.x,
@@ -81,7 +77,7 @@ class GameWorld {
         for (let i = 0; i < starArray.length; i++) {
             if (!starArray[i].destroyed) {
                 starArray[i].draw();
-                starArray[i].update(this.plane.rotation);
+                starArray[i].update(plane.rotation);
                 starArray[i].starCollisonWithPlane();
             }
         }
@@ -89,7 +85,7 @@ class GameWorld {
         for (let i = 0; i < megStarArray.length; i++) {
             if (!megStarArray[i].destroyed) {
                 megStarArray[i].draw();
-                megStarArray[i].update(this.plane.rotation);
+                megStarArray[i].update(plane.rotation);
                 megStarArray[i].shieldCollisonWithPlane();
             }
         }
@@ -134,4 +130,3 @@ class GameWorld {
     }
 }
 
-let gameWorld = new GameWorld();

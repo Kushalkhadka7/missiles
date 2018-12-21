@@ -1,21 +1,36 @@
+/**
+ * game background
+ * @class Background
+ */
 class Background {
 
     constructor() {
+        this.x;
+        this.y;
+        this.velocity = 3;
+        this.a = new Vector2(200, 300);
         this.position = new Vector2(-300, -300);
         this.backgroundDimensions = new Vector2(2000, 2000);
-        this.velocity = 3;
+
     }
 
     draw() {
         Canvas.drawSprites(sprites.background, this.position, this.backgroundDimensions);
+        Canvas.context.fillRect(this.a.x, this.a.y, 20, 20);
     }
 
     update(planeRotation) {
-        let y = Math.sin(planeRotation);
-        let x = Math.cos(planeRotation);
 
-        this.position.x -= x * this.velocity;
-        this.position.y -= y * this.velocity;
+        this.y = Math.sin(planeRotation);
+        this.x = Math.cos(planeRotation);
+
+        // this.a.x += this.x * this.velocity;
+        // this.a.y += this.y * this.velocity;
+
+        this.position.x -= this.x * this.velocity;
+        this.position.y -= this.y * this.velocity;
+
+        // console.log(this.position)
 
 
         if (this.position.x > -200) {

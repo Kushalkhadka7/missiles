@@ -10,7 +10,8 @@ let scoreArray = [];
 let shield = false;
 let collisonSound;
 let mainSound;
-let indexOfImage;
+// let choosePlanes = {};
+// let chooseMissiles = {};
 
 class Game {
 
@@ -29,17 +30,15 @@ class Game {
 
         this.gameWorld = new GameWorld();
 
-        this.pauseBtn.addEventListener('click', () => {
-            paused = !paused;
-            // this.pauseBtn.style.display = 'none';
-            console.log(paused);
-        });
+        game.pauseMenu();
 
-        collisonSound = document.getElementById('collison-sound');
-        collisonSound.volume = 0.1;
+        // sounds.starCollection.play();
 
-        mainSound = document.getElementById('main-sound');
-        mainSound.volume = 0.1;
+        // collisonSound = document.getElementById('collison-sound');
+        // collisonSound.volume = 0.1;
+
+        // mainSound = document.getElementById('main-sound');
+        // mainSound.volume = 0.1;
 
     }
 
@@ -71,8 +70,6 @@ class Game {
             }
 
             Mouse.resetMouse();
-
-
         }
 
         reqAnimationFrame = requestAnimationFrame(game.mainloop);
@@ -91,12 +88,31 @@ class Game {
     }
 
     playGameSound() {
+
         if (volumeOn && !paused) {
-            mainSound.play();
+            sounds.mainSound.play();
+            if (collided) { sounds.collisonSound.play(); }
+            if (starScored) { sounds.starCollectionSound.play(); }
         }
         else {
-            mainSound.pause();
+            sounds.mainSound.pause();
+            sounds.collisonSound.pause();
+            sounds.starCollectionSound.pause();
         }
+    }
+
+    pauseMenu() {
+        let resumeBtn = document.getElementById('resume-btn');
+
+        this.pauseBtn.addEventListener('click', () => {
+            paused = !paused;
+            resumeBtn.style.display = "block";
+        });
+
+        resumeBtn.addEventListener('click', () => {
+            paused = !paused;
+            resumeBtn.style.display = "none";
+        });
     }
 
     startMenu() {
@@ -146,10 +162,9 @@ class Game {
 
         for (let i = 0; i < immages.length; i++) {
             immages[i].addEventListener('click', (e) => {
-                game.setIndexofImage(i)
+                indexOfImage = i;
             });
         }
-
     }
 
     setIndexofImage(i) {
@@ -204,10 +219,7 @@ class Game {
         starArray = [];
         this.seconds = 0;
         starScored = 0;
-    }
 
-    pauseMenu() {
-        console.log('pausemenu')
     }
 
     drawControls() {

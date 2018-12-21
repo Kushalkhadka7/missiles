@@ -1,10 +1,11 @@
 const PLANE_ORIGIN = new Vector2(30, 30);
 const POINT_ORIGIN = new Vector2(-25, -3);
+let indexOfImage = 0;
 
 class Plane {
 
     constructor() {
-
+        console.log(indexOfImage);
         this.position = new Vector2(200, 300);
         this.pointPosition = new Vector2(200, 300);
         this.dimension = new Vector2(60, 60);

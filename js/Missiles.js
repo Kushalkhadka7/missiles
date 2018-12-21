@@ -1,11 +1,12 @@
 const MISSILE_ORIGIN = new Vector2(7.5, 10);
-let VELOCITY = 0.01;
+let VELOCITY = 1;
 const FLAG = 10;
 let explosion;
 let pool = new Array();
 let pArr = [];
 let collided = false;
 let vectorArray = [];
+let dxT, dyT;
 
 class Missiles {
 
@@ -17,7 +18,7 @@ class Missiles {
         this.turn = 1;
         this.vx;
         this.vy;
-        this.velocity = 2;
+        this.velocity = 0;
         this.direction = 0;
         this.radius = 7.5;
         this.destroyed = false;
@@ -26,12 +27,13 @@ class Missiles {
         this.curveIndex = 0;
         this.planeRotation;
         this.deltaRotation = 1;
+        this.length;
         this.handleUpdate();
     }
 
     draw() {
 
-        Canvas.drawImagePlane(sprites.missile[2], this.position, this.dimension, MISSILE_ORIGIN, this.rotation);
+        Canvas.drawImagePlane(sprites.missile[0], this.position, this.dimension, MISSILE_ORIGIN, this.rotation);
     }
 
     easeIn(a, b, percent) {
@@ -67,13 +69,23 @@ class Missiles {
 
     update(planeRotation) {
 
-        this.planeRotation = planeRotation;
+        // this.velocity += 0.0000000005;
 
-        let targetX = plane.pointPosition.x - this.position.x;
-        let targetY = plane.pointPosition.y - this.position.y;
+        // dxT = planeRotation;
 
+        let targetX = (plane.position.x) - this.position.x;
+        let targetY = (plane.position.y) - this.position.y;
+
+        this.length = Math.sqrt(targetX * targetX + targetY * targetY);
+
+        if (this.length) {
+
+            targetX = targetX / this.length;
+            targetY = targetY / this.length;
+        }
 
         let TAU = Math.PI * 2;
+
         let angle = Math.atan2(targetY, targetX);
 
         let theta = 0;
@@ -91,26 +103,31 @@ class Missiles {
             this.rotation += theta;
 
             if (Math.abs(delta) < turn) {
-
-                this.curveX = 0;
-                this.curveIndex = 0;
                 this.rotation = angle;
-
             }
         }
 
-        let diff = Math.abs(this.planeRotation) - Math.abs(this.rotation);
+        // console.log(this.rotation)
 
-        // if (Math.abs(diff) <= 1) {
-        //     console.log('he')
-        //     if (this.rotation != this.planeRotation) {
-        //         this.rotation += this.deltaRotation;
-        //         this.rotation = planeRotation;
-        //     }
-
+        // if (this.position.y <= plane.position.y) {
+        //     this.rotation += planeRotation;
+        // } else {
+        //     this.rotation -= planeRotation;
         // }
 
-        this.rotation = planeRotation;
+        let diff = this.rotation - planeRotation;
+        if (Math.abs(diff) >= 0.5) {
+            if (diff < 0 && this.position.x <= plane.position.x) {
+                this.position.x += 3 * diff;
+            }
+            else if (this.position.x >= plane.position.x) {
+                this.position.x -= 3 * diff;
+            }
+
+        }
+
+        // this.rotation = planeRotation;
+
         this.vx = Math.cos(this.rotation);
         this.vy = Math.sin(this.rotation);
 
@@ -118,12 +135,13 @@ class Missiles {
         // let y = Math.sin(planeRotation);
         // let x = Math.cos(planeRotation);
 
-        this.position.x += this.vx;
-        this.position.y += this.vy;
+        this.position.x += this.vx * VELOCITY;
+
+        this.position.y += this.vy * VELOCITY;
 
         // console.log(this.vx, this.vy)
 
-        VELOCITY += 0.005;
+
         // console.log(this.rotation, planeRotation);
         // this.position.x += x;
         // this.position.y += y;
@@ -131,9 +149,9 @@ class Missiles {
         this.curveX += this.curves[this.curveIndex];
         this.curveIndex++;
 
-        if (VELOCITY > 4.5) {
-            VELOCITY -= 0.05;
-        }
+        // if (VELOCITY < 5) {
+        //     VELOCITY += 0.01;
+        // }
     }
 
     // updatePosition() {
@@ -166,8 +184,8 @@ class Missiles {
     showParticleEffect(x, y) {
 
         explosion = setInterval(() => {
-            this.direction += 0.9;
-            color.gradualShift(this.direction);
+            // this.direction += 0.9;
+            // color.gradualShift(this.direction);
             for (let index = 0; index < 1; ++index) {
                 let particle = pool.pop();
 
@@ -181,7 +199,7 @@ class Missiles {
                     pArr.push(
                         new Particles(
                             x, y,
-                            Math.floor(Math.random() * 10 + 10),
+                            Math.floor(Math.random() * 10 + 15),
                             color.getRGBString(),
                             Math.random() * 1 - 0.6,
                             Math.random() * 1 - 0.6

@@ -8,7 +8,6 @@
     width: 400px;
     height: 600px;
     position: relative;
-    /* font-family: 'Pacifico'; */
 }
 
 ul{
@@ -41,7 +40,7 @@ ul{
 .image-star img,
 .star-image img{
     width: 100%;
-    border-radius: 50%;
+    /* border-radius: 50%; */
 }
 .score-text,
 .items{
@@ -65,7 +64,10 @@ ul{
 }
 
 .banner{
-    width: 100%;
+    width: 250px;
+    margin: 0 auto;
+    padding-top: 40px;
+    padding-bottom: 160px;
 }
 
 .banner img{
@@ -74,7 +76,6 @@ ul{
 .play-btn{
     width: 55px;
     margin: 0 auto;
-    padding-top: 150px;
     cursor: pointer;
 }
 .play-btn img{
@@ -87,26 +88,31 @@ ul{
    width: 100%;
    padding-top: 120px;
 }
-.home-icon,.setting-icon{
+.home-icon,.trophy-icon,.setting-icon{
     width: 30px;
     cursor: pointer;
 }
 .home-icon img,
+.trophy-icon img,
 .setting-icon img{
     width: 100%;
 }
-.home-icon{
-   background: red;
+.home-icon,
+.trophy-icon{
+   background: #0a778e;
     float: left;
     padding: 6px 8px 6px 8px;
     border-radius: 50%;
     margin-left: 25px;
 }
+.trophy-icon{
+   margin-left: 115px;
+}
 .setting-icon{
-    background: orange;
+    background: #f4a638;
     float: right;
-    padding: 7px 8px 5px 8px;
-    border-radius: 50%;    
+    padding: 8px 8px 4px 8px;
+    border-radius: 50%;
     margin-right: 25px;
 }
 
@@ -160,7 +166,22 @@ ul{
 .game-over-menu .middle-content .play-btn{
     padding-top: 45px;
 }
+#best-score-banner{
+    display: none;
+}
 
+/* .pause-menu-container{
+    width: 400px;
+} */
+.pause-menu{
+    display: none;
+    position: absolute;
+    width: 55px;
+    margin: 0 0 0 172px;
+    cursor: pointer;
+    bottom: 30%;
+    transform: translateY(-30%);
+}
 .pause-btn{
     width: 30px;
     position: absolute;

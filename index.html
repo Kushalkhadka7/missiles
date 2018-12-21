@@ -15,9 +15,9 @@
         <div class="top-setting clearfix">
             <div class="score clearfix">
                 <div class="image-star">
-                    <img src="./assets/menu-assets/star.png" alt="">
+                    <img src="./assets/menu-assets/megStar.png" alt="star-image">
                 </div>
-                <div class="score-text">
+                <div class="score-text" id="high-score-text">
                     18
                 </div>
             </div>
@@ -28,21 +28,24 @@
         </div>
 
         <div class="banner">
-            <img src="./assets/menu-assets/banner.jpg" alt="">
+            <img src="./assets/menu-assets/banner.png" alt="">
         </div>
 
         <div class="game-controls">
             <div class="play-btn" id="play">
-                <img src="./assets/menu-assets/p.png" alt="">
+                <img src="./assets/menu-assets/play.png" alt="">
             </div>
         </div>
 
         <div class="bottom-settings clearfix">
             <div class="home-icon">
-                <img src="./assets/menu-assets/Home_icon_grey.png" alt="">
+                <img src="./assets/menu-assets/newhome.png" alt="">
+            </div>
+            <div class="trophy-icon" id="settings">
+                <img src="./assets/menu-assets/setting.png" alt="">
             </div>
             <div class="setting-icon" id="settings">
-                <img src="./assets/menu-assets/setting-567-722008.png" alt="">
+                <img src="./assets/menu-assets/setting.png" alt="">
             </div>
         </div>
     </div>
@@ -50,6 +53,7 @@
     <div class="game-over-menu" id='game-over-menu'>
         <div class="middle-content">
             <ul>
+                <li id="best-score-banner"><img src="./assets/menu-assets/best-score.png" alt=""></li>
                 <li>Your Score</li>
                 <li id="obtained-score">0</li>
                 <li>
@@ -65,7 +69,7 @@
                 <li>
                     <div class="clearfix">
                         <div class="star-image">
-                            <img src="./assets/menu-assets/timeicon.png" alt="">
+                            <img src="./assets/menu-assets/time.png" alt="">
                         </div>
                         <div class="scored-content" id="scored-content-time">
 
@@ -75,7 +79,7 @@
                 <li>
                     <div class="clearfix">
                         <div class="star-image">
-                            <img src="./assets/menu-assets/timeicon.png" alt="">
+                            <img src="./assets/menu-assets/megStar.png" alt="">
                         </div>
                         <div class="scored-content" id='score-total'>
                             +20
@@ -90,16 +94,21 @@
 
         <div class="bottom-settings clearfix">
             <div class="home-icon" id="home-icon">
-                <img src="./assets/menu-assets/Home_icon_grey.png" alt="">
+                <img src="./assets/menu-assets/newhome.png" alt="">
             </div>
             <div class="setting-icon">
-                <img src="./assets/menu-assets/setting-567-722008.png" alt="">
+                <img src="./assets/menu-assets/setting.png" alt="">
             </div>
         </div>
     </div>
 
     <div class="pause-btn" id="pause-btn">
         <img src="./assets/menu-assets/pause.png" alt="">
+    </div>
+
+
+    <div class="play-btn pause-menu" id="resume-btn">
+        <img src="./assets/menu-assets/play.png" alt="">
     </div>
 
     <div class="model" id="model">
@@ -133,22 +142,22 @@
                     select missile
                 </div>
                 <div class="content">
-                    <img src=" ./assets/2.png" alt="">
+                    <img src=" ./assets/missile2.png" alt="">
                 </div>
                 <div class="content">
-                    <img src=" ./assets/2.png" alt="">
+                    <img src=" ./assets/missile3.png" alt="">
                 </div>
                 <div class="content">
-                    <img src=" ./assets/2.png" alt="">
+                    <img src=" ./assets/missile2.png" alt="">
                 </div>
             </div>
         </div>
     </div>
 
     <audio src="./sounds/airplane-fly-by-02.mp3" id="main-sound"></audio>
-    <audio src="./sounds/Bomb+1.mp3" id="collison-sound"></audio>
-
-
+    <audio src="./sounds/zapsplat_explosion_internal_reverb_distant_loud_25205.mp3" id="collison-sound"></audio>
+    <audio src="./sounds/SOUND EFFECT  Collect Coin (Game Sound)" id="star-collection"></audio>
+    <audio src="./sounds/warfare_missile_fly_by_quickly.mp3" id="missile-sound"></audio>
 
 
     <canvas width="400px" height="600px" id="screen"></canvas>

@@ -3,7 +3,7 @@ class Stars {
     constructor() {
 
         this.position = new Vector2(random(100, 400), random(100, 600));
-        this.dimension = new Vector2(25, 25);
+        this.dimension = new Vector2(20, 20);
         this.counter = 0;
         this.velocity = 3;
         this.radius = 5;
