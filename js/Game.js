@@ -1,59 +1,74 @@
-let reqAnimationFrame;
-let startGame = false;
-let gameOver = false;
-let bonus = false;
-let starScored = 0;
-let volumeOn = true;
-let paused = false;
-let gameOverTimeOut;
-let scoreArray = [];
-let shieldCollected = false;
-let collisonSound;
-let mainSound;
+let reqAnimationFrame;       //holds the value fo requestAnimationFrane either running or not
+let startGame = false;       //checks either the game is started or not
+let gameOver = false;        //detects either the game is over
+let bonus = false;           //checks either the player have collected any bonus score
+let starCollected = 0;          //holds the number of stars that the player collected
+let volumeOn = true;         //checks  the volume of the game (initially on )
+let paused = false;          //checks the state either the game is paused or not
+let gameOverTimeOut;         //runs the timeout after the game is over to show gameOverMenu
+let shieldCollected = false; //checks either shield is active or not
 
 
+/**
+ * Main class to run the game handels all events in the game
+ * this.score = time which the player plays the game
+ * this.initial = checks either the game is opened for the first time or it have been played more
+ * this.startMenu = function that calls start menu (it happens before game play begins)
+ * @class Game
+ */
 class Game {
 
     constructor() {
+        this.score = 0;
+        this.highScore = 0;
+        this.frameCount = 0;
+        this.initial = true;
 
         this.startMenu();
-        this.frameCount = 0;
-        this.seconds = 0;
-        this.highScore = 0;
-        this.pauseBtn = document.getElementById('pause-btn');
-        this.initial = true;
+        this.pauseButton = document.getElementById('pause-btn');
     }
 
+    /**
+     *function that initializes the game
+     *loads all the components requires for the game from GameWorld
+     *also handles the state of pause button
+     * @memberof Game
+     */
     init() {
-
         this.gameWorld = new GameWorld();
-
         game.pauseMenu();
-
-        // sounds.starCollection.play();
-
-        // collisonSound = document.getElementById('collison-sound');
-        // collisonSound.volume = 0.1;
-
-        // mainSound = document.getElementById('main-sound');
-        // mainSound.volume = 0.1;
-
     }
 
-    start() {
-        // console.log(game.initial);
+    /**
+     * starts the game by calling the game main loop
+     * fist funciton to run after loading all assets
+     * also handles init function
+     * @memberof Game
+     */
+    start(sprites) {
         game.init();
         game.mainloop();
     }
 
+
+    /**
+     * main funciton that keeps the game running
+     * time = handels the main functionality of the game
+     * check when to pause the game ,when to stop the game
+     * also checks which components to draw when
+     * like backgound,plane is drawn earlier than missiles and stars are drawn after gameStart
+     * @param {*} time = value given by requestAnimationFrame(its a current time in which the game is running)
+     * @returns
+     * @memberof Game
+     */
     mainloop(time) {
-        game.playGameSound();
+        // game.playGameSound();
 
         if (!paused) {
 
             time == undefined ? time = 0 : time;
 
-            //Canvas.clear(0, 0, Canvas.canvas.width, Canvas.canvas.height);
+            Canvas.clear(0, 0, Canvas.canvas.width, Canvas.canvas.height);
             game.gameWorld.draw();
             game.gameWorld.update();
 
@@ -62,13 +77,14 @@ class Game {
                 game.gameWorld.drawAfterGameStart();
                 game.gameWorld.updateAfterGameStart();
 
-                game.drawControls();
+                game.drawScoreContents();
 
             }
 
             Mouse.resetMouse();
         }
 
+        /**runs the game loop */
         reqAnimationFrame = requestAnimationFrame(game.mainloop);
 
         if (collided == true) {
@@ -84,12 +100,19 @@ class Game {
 
     }
 
+    /**
+     * handles the sound of the game
+     * checks which sound to play whend
+     * generally sound playing is done on the basic of events like start,volumeOn,collided
+     * also calculates the distance between plane and missiles and plays missiles sound when it is near the plane only
+     * @memberof Game
+     */
     playGameSound() {
 
         if (volumeOn && !paused) {
             sounds.mainSound.play();
             if (collided || missile.destroyed) { sounds.collisonSound.play(); }
-            if (starScored) { sounds.starCollectionSound.play(); }
+            if (starCollected) { sounds.starCollectionSound.play(); }
 
             let distance = calcDistance(
                 plane.position.x,
@@ -107,22 +130,36 @@ class Game {
         }
     }
 
+    /**
+     *play pause the game based on boolean paused
+     *handles which elements to display when the game is pause or resumed
+     * @memberof Game
+     */
     pauseMenu() {
-        let resumeBtn = document.getElementById('resume-btn');
+        let resumeButton = document.getElementById('resume-btn');
 
-        this.pauseBtn.addEventListener('click', () => {
+        this.pauseButton.addEventListener('click', () => {
             paused = !paused;
-            resumeBtn.style.display = "block";
-            this.pauseBtn.style.display = "none";
+            resumeButton.style.display = "block";
+            this.pauseButton.style.display = "none";
         });
 
-        resumeBtn.addEventListener('click', () => {
+        resumeButton.addEventListener('click', () => {
             paused = !paused;
-            resumeBtn.style.display = "none";
-            this.pauseBtn.style.display = "block";
+            resumeButton.style.display = "none";
+            this.pauseButton.style.display = "block";
         });
     }
 
+
+    /**
+     * main menu of the game
+     * handels the events like starting the game while start button is pressed
+     * handles volume events
+     * handles events like choosing the plane and missiles
+     * access the start menu html elements and add functionality to them
+     * @memberof Game
+     */
     startMenu() {
 
         let startMenuContainer = document.getElementById('start-menu');
@@ -134,14 +171,16 @@ class Game {
         let settings = document.getElementById('settings');
         let model = document.getElementById('model');
         let cancelModel = document.getElementById('cancel-image');
-        let immages = document.getElementsByClassName('content');
+        let characters = document.getElementsByClassName('content');
 
         displayHighScore.innerHTML = `${localStorage.getItem('highScore') == null ? 0 : localStorage.getItem('highScore')}`
 
         playGame.addEventListener('click', () => {
             startMenuContainer.style.display = "none";
-            this.pauseBtn.style.display = "block";
+            this.pauseButton.style.display = "block";
+
             game.resetGame();
+
             if (!game.initial) {
                 game.start();
             }
@@ -149,7 +188,6 @@ class Game {
         });
 
         volumeToggle.addEventListener('click', () => {
-
             volumeOn = !volumeOn;
 
             if (volumeOn == false) {
@@ -171,14 +209,22 @@ class Game {
             startMenuContainer.style.opacity = '1';
         });
 
-        for (let i = 0; i < immages.length; i++) {
-            immages[i].addEventListener('click', (e) => {
-                if (i <= 2) { indexOfPlane = 1 }
+        for (let i = 0; i < characters.length; i++) {
+            characters[i].addEventListener('click', () => {
+                if (i <= 2) { indexOfPlane = i }
                 indexOfMissiles = i;
             });
         }
     }
 
+    /**
+     * menu displayed after the game is over
+     * access html elements and add functionality to them
+     * resets the game by calling resetGame function
+     * disply score,highscore to player
+     * redirect to start menu
+     * @memberof Game
+     */
     gameOverMenu() {
 
         let gameOverMenuContainer = document.getElementById('game-over-menu');
@@ -193,17 +239,19 @@ class Game {
 
         game.clacHighScore(yourScoreText, bestScore);
 
-        this.pauseBtn.style.display = 'none';
+        this.pauseButton.style.display = 'none';
         gameOverMenuContainer.style.display = "block";
-        obtainedScore.innerHTML = this.seconds;
-        yourStar.innerHTML = `+${starScored}`;
-        yourTime.innerHTML = `+${this.seconds}`;
-        scoreTotal.innerHTML = `+${this.seconds + starScored}`;
+        obtainedScore.innerHTML = this.score;
+        yourStar.innerHTML = `+${starCollected}`;
+        yourTime.innerHTML = `+${this.score}`;
+        scoreTotal.innerHTML = `+${this.score + starCollected}`;
 
         gameOverPlayBtn.addEventListener('click', () => {
             gameOverMenuContainer.style.display = "none";
+
             clearTimeout(gameOverTimeOut);
             cancelAnimationFrame(reqAnimationFrame);
+
             game.resetGame();
             game.start();
         });
@@ -214,6 +262,11 @@ class Game {
         });
     }
 
+    /**
+     *reset all game events
+     *generally runs after game is over
+     * @memberof Game
+     */
     resetGame() {
 
         startGame = true;
@@ -225,34 +278,51 @@ class Game {
         missilesArray = [];
         particlesArray = [];
         pArr = [];
-        megStarArray = [];
+        shieldArray = [];
         starArray = [];
-        this.seconds = 0;
-        starScored = 0;
+        this.score = 0;
+        starCollected = 0;
 
     }
 
-    drawControls() {
+
+    /**
+     * draws the content on the canvas
+     * count score or time the player have played
+     * show time played,stars collected in canvas
+     * @memberof Game
+     */
+    drawScoreContents() {
 
         this.frameCount++;
 
         if (this.frameCount % 50 == 0) {
-            this.seconds++;
+            this.score++;
         }
 
-        let min = Math.floor(this.seconds / 60);
-        let sec = this.seconds - min * 60;
+        let min = Math.floor(this.score / 60);
+        let sec = this.score - min * 60;
 
         Canvas.context.fillStyle = "#000"
         Canvas.context.fillText(`${min}:${sec}`, 10, 30);
-        Canvas.context.font = "20px Arial";
-        Canvas.context.fillText(starScored, 320, 30);
+        Canvas.context.font = "20px cursive";
+        Canvas.context.fillText(starCollected, 320, 30);
         Canvas.drawSprites(sprites.star, { x: 350, y: 10 }, { x: 25, y: 25 });
     }
 
+
+    /**
+     *calculate highscore of the game
+     *save the highscore in browser localstorage
+     * @param {*} yourScoreText = html element displayed after the game is over
+     * @param {*} bestScore = html element thai is displayed when player score highscore
+     * checks the value in localstorage and current score and calculates highscore
+     * @memberof Game
+     */
     clacHighScore(yourScoreText, bestScore) {
-        if (this.seconds > localStorage.getItem('highScore')) {
-            localStorage.setItem('highScore', this.seconds);
+
+        if (this.score > localStorage.getItem('highScore')) {
+            localStorage.setItem('highScore', this.score);
             let savedScore = localStorage.getItem('highScore');
             yourScoreText.style.display = 'none';
             bestScore.style.display = 'block';

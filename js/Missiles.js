@@ -202,14 +202,14 @@ class Missiles {
         if (distance == true) {
             if (shieldCollected) {
                 this.showParticleEffect(missileX, missileY);
-                this.destroyed = false;
+                this.destroyed = true;
                 collided = false;
 
 
             } else if (!shieldCollected) {
                 this.showParticleEffect(missileX, missileY);
                 this.destroyed = true;
-                collided = false;
+                collided = true;
                 // console.log('sssss');
             }
         }

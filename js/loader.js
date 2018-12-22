@@ -29,7 +29,7 @@ let loadAssets = (callback) => {
         assetStillLoading++;
 
         const SPRITE_IMAGE = new Image();
-        SPRITE_IMAGE.src = "../assets/" + fileName;
+        SPRITE_IMAGE.src = './assets/' + fileName;
 
         SPRITE_IMAGE.onload = function () {
             assetStillLoading--;
@@ -40,12 +40,20 @@ let loadAssets = (callback) => {
     loadSounds = id => document.getElementById(id);
 
     // sprites.background = loadSprites("newbackground.jpg");
-    sprites.shieldImage = loadSprites("shield.png");
-    sprites.star = loadSprites("menu-assets/star.png");
+
+    sprites.star = loadSprites('menu-assets/star.png');
     sprites.background = loadSprites("background1.jpg");
     sprites.pause = loadSprites("menu-assets/pause.png");
-    sprites.plane = [loadSprites("plane1.png"), loadSprites("plane2.svg"), loadSprites("plane2.svg")];
-    sprites.missile = [loadSprites("missile2.png"), loadSprites("missile3.png"), loadSprites("missile3.png")];
+    sprites.plane = [
+        loadSprites("plane1.png"),
+        loadSprites("plane2.svg"),
+        loadSprites("plane2.svg")
+    ];
+    sprites.missile = [
+        loadSprites("missile2.png"),
+        loadSprites("missile3.png"),
+        loadSprites("missile3.png")
+    ];
 
     sounds.mainSound = loadSounds('main-sound');
     sounds.missileSound = loadSounds('missile-sound');
@@ -54,4 +62,6 @@ let loadAssets = (callback) => {
 
     assetsLoadingLoop(callback);
 }
+
+
 

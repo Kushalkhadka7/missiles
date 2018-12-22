@@ -1,47 +1,83 @@
+/**
+ * starArray = array that holds all the generated stars
+ * shieldArray = array that holds all the generated shields
+ * missilesArray = array that holds all the generated missiles
+ * particlesArray = array that holds all the generated particles in particle system
+ */
+let starArray = [];
+let shieldArray = [];
+let missilesArray = [];
 let particlesArray = [];
-let interval;
-let missilesArray = new Array();
-let starArray = new Array();
-let megStarArray = new Array();
 
+/**
+ * handles the components in the game like plane,missiles,backgound,stars,shield
+ * this.counter = counts the number of frames
+ * this.colorRangeIncrease = factor that increases the rgb value
+ * this.star = instance of star class
+ * this.color = instance of color class
+ * @class GameWorld
+ */
 class GameWorld {
 
     constructor() {
-
-        this.color = new Color(225, 225, 225);
-
-        this.star = new Stars();
-        this.direction = 0;
-
-        this.counter = 0;
-
+        this.countFrames = 0;
+        this.previouscounter = 0
+        this.colorRangeIncrease = 0;
         this.previousPlaneRotation = 0;
 
-        this.previouscounter = 0
+        this.star = new Stars();
+        this.color = new Color(225, 225, 225);
     }
 
+    /**
+     * draw all the components that are required before game begins
+     * draw the background (backgound  = instance of backgound class)
+     * draw the plane (plane  = instance of plane class)
+     * @memberof GameWorld
+     */
     draw() {
-        // console.log(indexOfImage)
         background.draw();
         plane.draw();
     }
 
+    /**
+     * updates all the components that are required before game
+     * updates the background
+     * updates the plane
+     * pass plane rotation to backgound class
+     * @memberof GameWorld
+     */
     update() {
         background.update(plane.rotation);
         plane.update();
         this.previouscounter++;
-
         this.previousPlaneRotation = this.previouscounter % 2 === 0 ? plane.rotation : this.previousPlaneRotation;
-
     }
 
+
+    /**
+     * draw components that are required after game starts like missiles,stars,shields
+     * increase the counter every frame
+     * reset mouse posiiton if undefined
+     * calculate the counter and generates stars,shields,missiles in certain interval only
+     * generates and updates stars,missiles,shields using respective arrays
+     * attach particle system to missiles by calling this.showParticleEffect funciton
+     * collisonWithPlane() = checks either the plane and missile are collided or not
+     * collisonWithOtherMissile = checks the collison of one missile with other missile
+     * shieldCollisonWithPlane = checks the collison of one missile with shield
+     * starCollisonWithPlane = checks the collison of one missile with stars
+     * draws those components olny if they are not destroyed
+     * @memberof GameWorld
+     */
     drawAfterGameStart() {
 
-        this.counter++;
+        this.countFrames++;
 
         Mouse.position == undefined ? Mouse.position = new Vector2() : Mouse.position;
 
-        if (this.counter % 300 == 0) {
+        /**generates the missiles and stars in certain interval */
+        if (this.countFrames % 300 == 0) {
+
             this.missile = new Missiles();
             missilesArray.push(this.missile);
 
@@ -49,18 +85,20 @@ class GameWorld {
             starArray.push(this.star);
         }
 
-        if (this.counter % 1000 == 0) {
-            this.megStar = new MegaStar();
-            megStarArray.push(this.megStar);
+        /**generates the shield in certain interval */
+        if (this.countFrames % 1000 == 0) {
+            this.shield = new Shield();
+            shieldArray.push(this.shield);
         }
 
-        /*for missile generation */
+        /*generates missiles using the missilesArray */
         for (let i = 0; i < missilesArray.length; i++) {
 
             if (!missilesArray[i].destroyed) {
 
                 missilesArray[i].update(plane.rotation);
 
+                /**attach particle system to individual missiles tracked by their index */
                 this.showParticles(
                     missilesArray[i].position.x,
                     missilesArray[i].position.y,
@@ -80,7 +118,8 @@ class GameWorld {
                 }
             }
         }
-        /*for star generation */
+
+        /*generates stars form starArray */
         for (let i = 0; i < starArray.length; i++) {
             if (!starArray[i].destroyed) {
                 starArray[i].draw();
@@ -89,19 +128,32 @@ class GameWorld {
             }
         }
 
-        for (let i = 0; i < megStarArray.length; i++) {
-            if (!megStarArray[i].destroyed) {
-                megStarArray[i].draw();
-                megStarArray[i].update(plane.rotation);
-                megStarArray[i].shieldCollisonWithPlane();
+        /*generates shield form starArray */
+        for (let i = 0; i < shieldArray.length; i++) {
+            if (!shieldArray[i].destroyed) {
+                shieldArray[i].draw();
+                shieldArray[i].update(plane.rotation);
+                shieldArray[i].shieldCollisonWithPlane();
             }
         }
     }
 
+    /**
+     * initialize particle system in given position
+     * @param {*} x = x co-ordinate where particle system is generated
+     * @param {*} y = y co-ordinate where particle system is generated
+     * @param {*} radius = radius of the particles generated (usually 0 to 15 random numbers)
+     * @param {*} [id=null] = id of missile in to track particular missile and its particle system
+     * @param {*} vx = x velocity to particles
+     * @param {*} vy = y velocity to particles
+     * id can be null (optional)
+     * this.colorRangeIncrease = rate at which the rgb value changes
+     * @memberof GameWorld
+     */
     showParticles(x, y, radius, id = null, vx, vy) {
 
-        this.direction += 0.01;
-        this.color.gradualShift(this.direction);
+        this.colorRangeIncrease += 0.01;
+        this.color.gradualShift(this.colorRangeIncrease);
 
         particlesArray.push(
             new Particles(
@@ -114,10 +166,11 @@ class GameWorld {
             )
         );
 
+        /**generates particles from particlesArray and removes those particles that have alpha less than 0*/
         for (let index = particlesArray.length - 1; index > -1; --index) {
 
             let particle = particlesArray[index];
-            // console.log(particle.id);
+
             if (missilesArray[particle.id].destroyed) {
                 particlesArray.splice(index, 1);
                 continue;

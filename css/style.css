@@ -23,6 +23,7 @@ ul{
     position: absolute;
     opacity: 1;
     display: block;
+    font-family: cursive;
 }
 .top-setting,
 .top-content{
@@ -188,10 +189,6 @@ ul{
 #best-score-banner{
     display: none;
 }
-
-/* .pause-menu-container{
-    width: 400px;
-} */
 .pause-menu{
     display: none;
     position: absolute;

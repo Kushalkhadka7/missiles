@@ -5,7 +5,7 @@
  * remains active for 5 seconds
  * @class MegaStar
  */
-class MegaStar {
+class Shield {
 
     constructor() {
         this.radius = 5;
@@ -76,4 +76,4 @@ class MegaStar {
         }, 5000);
     }
 }
-let megStar = new MegaStar();
+let shield = new Shield();
