@@ -46,11 +46,11 @@ let loadAssets = (callback) => {
   sprites.plane = [
     loadSprites("plane1.png"),
     loadSprites("plane2.svg"),
-    loadSprites("plane2.svg")
+    loadSprites("plane1.png")
   ];
   sprites.missile = [
+    loadSprites("missile1.png"),
     loadSprites("missile2.png"),
-    loadSprites("missile3.png"),
     loadSprites("missile3.png")
   ];
 

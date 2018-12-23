@@ -52,4 +52,3 @@ class Background {
   }
 }
 
-let background = new Background();

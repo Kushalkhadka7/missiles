@@ -167,6 +167,7 @@ class Game {
     let settings = document.getElementById('settings');
     let cancelModel = document.getElementById('cancel-image');
     let characters = document.getElementsByClassName('content');
+    let home = document.getElementById('home-icon');
 
     displayHighScore.innerHTML = `${localStorage.getItem('highScore') == null ? 0 : localStorage.getItem('highScore')}`
 
@@ -192,6 +193,11 @@ class Game {
         VON.style.display = 'block';
         VOFF.style.display = 'none';
       }
+    });
+
+    home.addEventListener('click', () => {
+      this.startMenuContainer.style.display = 'none';
+      location.reload();
     });
 
     settings.addEventListener('click', () => {

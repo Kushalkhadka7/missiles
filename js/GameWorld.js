@@ -26,6 +26,7 @@ class GameWorld {
     this.previousPlaneRotation = 0;
 
     this.star = new Stars();
+    this.background = new Background();
     this.color = new Color(255, 255, 255);
   }
 
@@ -36,7 +37,7 @@ class GameWorld {
    * @memberof GameWorld
    */
   draw() {
-    background.draw();
+    this.background.draw();
     plane.draw();
   }
 
@@ -48,7 +49,7 @@ class GameWorld {
    * @memberof GameWorld
    */
   update() {
-    background.update(plane.angle);
+    this.background.update(plane.angle);
     plane.update();
   }
 

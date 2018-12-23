@@ -65,5 +65,4 @@ class Canvas2D {
     this.context.restore();
   }
 }
-
 let Canvas = new Canvas2D();
