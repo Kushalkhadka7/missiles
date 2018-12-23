@@ -91,8 +91,6 @@ class Plane {
 
     this.tailX = this.position.x - VALUE_TO_PLANE_TAIL * Math.cos(this.angle);
     this.tailY = this.position.y - VALUE_TO_PLANE_TAIL * Math.sin(this.angle);
-
-    Canvas.context.fillRect(this.tailX, this.tailY, 10, 10);
   }
 
   /**
