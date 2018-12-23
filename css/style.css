@@ -1,272 +1,269 @@
 
 .clearfix::before,.clearfix::after{
-    clear: both;
+  clear: both;
 	content: "";
 	display: table;
 }
 .main-container{
-    width: 400px;
-    height: 600px;
-    position: relative;
-    /* margin: 0 auto; */
+  width: 400px;
+  height: 600px;
+  position: relative;
+  /* margin: 0 auto; */
 }
 
 ul{
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .start-menu,
 .game-over-menu{
-    width: 400px;
-    height: 600px;
-    position: absolute;
-    opacity: 1;
-    display: block;
-    font-family: cursive;
+  width: 400px;
+  height: 600px;
+  position: absolute;
+  opacity: 1;
+  display: block;
+  font-family: cursive;
 }
 .top-setting,
 .top-content{
-   width: 100%;
+  width: 100%;
 }
 .score,.played-time{
-    float: left;
-    padding: 15px 0 15px 10px;
-    line-height: 25px;
+  float: left;
+  padding: 15px 0 15px 10px;
+  line-height: 25px;
 }
 .image-star,
 .star-image{
-    float: left;
-    width: 25px;
+  float: left;
+  width: 25px;
 }
 .image-star img,
 .star-image img{
-    width: 100%;
-    /* border-radius: 50%; */
+  width: 100%;
 }
 .score-text,
 .items{
-    float: left;
-    padding-left: 10px;
-    font-size: 20px;
-    font-weight: bold;
+  float: left;
+  padding-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .volume-control,
 .collected-stars{
-    padding: 15px 15px 15px 0;
-    float:right;
-    width: 20px;
-    cursor: pointer;
+  padding: 15px 15px 15px 0;
+  float:right;
+  width: 20px;
+  cursor: pointer;
 }
 .volume-control img{
-    width: 100%;
+  width: 100%;
 }
 #v-off{
-    display: none;
+  display: none;
 }
 
 .banner{
-    width: 250px;
-    margin: 0 auto;
-    padding-top: 40px;
-    padding-bottom: 160px;
+  width: 250px;
+  margin: 0 auto;
+  padding-top: 40px;
+  padding-bottom: 160px;
 }
 
 .banner img{
-    width: 100%;
+  width: 100%;
 }
 .play-btn{
-    width: 55px;
-    margin: 0 auto;
-    cursor: pointer;
+  width: 55px;
+  margin: 0 auto;
+  cursor: pointer;
 }
 .play-btn img{
-    width: 100%;
-    background: red;
-    border-radius: 50%;
+  width: 100%;
+  background: red;
+  border-radius: 50%;
 }
 
 .bottom-settings{
-   width: 100%;
-   padding-top: 120px;
+  width: 100%;
+  padding-top: 120px;
 }
 .home-icon,.trophy-icon,.setting-icon{
-    width: 30px;
-    cursor: pointer;
+  width: 30px;
+  cursor: pointer;
 }
 .home-icon img,
 .trophy-icon img,
 .setting-icon img{
-    width: 100%;
+  width: 100%;
 }
 .home-icon,
 .trophy-icon{
-   background: #0a778e;
-    float: left;
-    padding: 6px 8px 6px 8px;
-    border-radius: 50%;
-    margin-left: 25px;
+  background: #0a778e;
+  float: left;
+  padding: 6px 8px 6px 8px;
+  border-radius: 50%;
+  margin-left: 25px;
 }
 .trophy-icon{
-   margin-left: 115px;
+  margin-left: 115px;
 }
 .setting-icon{
-    background: #f4a638;
-    float: right;
-    padding: 8px 8px 4px 8px;
-    border-radius: 50%;
-    margin-right: 25px;
+  background: #f4a638;
+  float: right;
+  padding: 8px 8px 4px 8px;
+  border-radius: 50%;
+  margin-right: 25px;
 }
-
-/* game over menu */
 
 .game-over-menu{
-    display: none;
+  display: none;
 }
 .played-time{
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
 }
 .collected-stars{
-    width: 20%;
-    padding-right: 0;
+  width: 20%;
+  padding-right: 0;
 }
 .items{
-    padding-right: 10px;
-    padding-left: 0;
+  padding-right: 10px;
+  padding-left: 0;
 }
 .middle-content{
-    padding: 80px 0 0 0;
+  padding: 80px 0 0 0;
 }
 .middle-content ul li{
-    width: 45%;
-    margin: 0 auto;
-    text-align: center;
-    list-style-type: none;
-    font-size: 30px;
-    font-weight: bold;
-    padding: 5px 0;
-    font-family: cursive;
+  width: 45%;
+  margin: 0 auto;
+  text-align: center;
+  list-style-type: none;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 5px 0;
+  font-family: cursive;
 }
 .scored-content{
-    float: right;
-    font-weight: 500;
-    font-size: 20px;
+  float: right;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 #your-score{
-    text-align: center;
-    font-size: 40px;
-    font-family: cursive;
-    font-weight: bold;
-    padding-bottom: 10px;
+  text-align: center;
+  font-size: 40px;
+  font-family: cursive;
+  font-weight: bold;
+  padding-bottom: 10px;
 
 }
 #best-score-banner{
-    display: block;
-    width: 250px;
-    margin: 0 auto;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
 }
 #best-score-banner img{
-    width: 100%;
+  width: 100%;
 }
 
 .middle-content ul li:last-child{
-    border-top: 1px solid #000;
+  border-top: 1px solid #000;
 }
 .middle-content ul li:nth-child(odd){
-    padding-bottom: 30px;
+  padding-bottom: 30px;
 }
 .middle-content .play-btn{
-    padding-top: 50px;
+  padding-top: 50px;
 }
 .game-over-menu .bottom-settings{
-       padding-top: 10px;
+  padding-top: 10px;
 }
 .game-over-menu .middle-content .play-btn{
-    padding-top: 45px;
+  padding-top: 45px;
 }
 #best-score-banner{
-    display: none;
+  display: none;
 }
 .pause-menu{
-    display: none;
-    position: absolute;
-    width: 55px;
-    margin: 0 0 0 172px;
-    cursor: pointer;
-    bottom: 30%;
-    transform: translateY(-30%);
+  display: none;
+  position: absolute;
+  width: 55px;
+  margin: 0 0 0 172px;
+  cursor: pointer;
+  bottom: 30%;
+  transform: translateY(-30%);
 }
 .pause-btn{
-    width: 30px;
-    position: absolute;
-    display: inline-block;
-    left: 195px;
-    top: 15px;
-    display: none;
-    cursor: pointer;
+  width: 30px;
+  position: absolute;
+  display: inline-block;
+  left: 195px;
+  top: 15px;
+  display: none;
+  cursor: pointer;
 }
 .pause-btn img{
-    width: 100%;
+  width: 100%;
 }
 
 .model{
-background-color: #fff;
-    position: absolute;
-    bottom: 12%;
-    left: 12%;
-    width: 300px;
-    margin: 0 auto;
-    display: none;
+  background-color: #fff;
+  position: absolute;
+  bottom: 12%;
+  left: 12%;
+  width: 300px;
+  margin: 0 auto;
+  display: none;
 }
 .model-header{
-   background: #e13729;
-    font-size: 25px;
-    color: white;
-    text-transform: capitalize;
-    padding: 5px 0 5px 8px;
+  background: #e13729;
+  font-size: 25px;
+  color: white;
+  text-transform: capitalize;
+  padding: 5px 0 5px 8px;
 }
 .model-body{
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .model .content{
-    width: 30%;
-    background: #e6e6e6;
-    float: left;
-    margin: 0 0 0 7px;
-    cursor: pointer;
-    padding-bottom: 10px;
+  width: 30%;
+  background: #e6e6e6;
+  float: left;
+  margin: 0 0 0 7px;
+  cursor: pointer;
+  padding-bottom: 10px;
 }
 .header-text{
-    float: left;
+  float: left;
 }
 .cancel-img{
-    float:right;
-    width: 30px;
-    margin-right: 5px;
-    cursor: pointer;
+  float:right;
+  width: 30px;
+  margin-right: 5px;
+  cursor: pointer;
 }
 
 .cancel-img img{
-    width: 100%;
+  width: 100%;
 }
 
 .content-text{
-    font-size: 18px;
-    text-transform: capitalize;
-    margin: 10px 5px 5px 7px;
+  font-size: 18px;
+  text-transform: capitalize;
+  margin: 10px 5px 5px 7px;
 }
 .last{
-    border-top: 1px solid #000;
-    padding-top: 10px;
+  border-top: 1px solid #000;
+  padding-top: 10px;
 }
 
 .content:hover{
-    box-shadow: 9px 7px 73px 0px rgba(0,0,0,0.75);
+  box-shadow: 9px 7px 73px 0px rgba(0,0,0,0.75);
 }
 
 .content img{
-    width: 100%;
+  width: 100%;
 }

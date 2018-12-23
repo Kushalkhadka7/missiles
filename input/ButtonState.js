@@ -1,4 +1,3 @@
-
 /**
  * handles the state of mouse buttons
  * verifies either the mouse buttons are pressed or not
@@ -6,10 +5,10 @@
  */
 class ButtonState {
 
-    constructor() {
+  constructor() {
 
-        this.down = false;
+    this.down = false;
 
-        this.pressed = false;
-    }
+    this.pressed = false;
+  }
 }
