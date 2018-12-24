@@ -14,9 +14,10 @@
  * @class Plane
  */
 
-const PLANE_ORIGIN = new Vector2(30, 30);
-const VALUE_TO_PLANE_TAIL = 25;
 let indexOfPlane = 0;
+const VALUE_TO_PLANE_TAIL = 25;
+const PLANE_ORIGIN = new Vector2(30, 30);
+
 
 class Plane {
 
@@ -41,11 +42,9 @@ class Plane {
    * @memberof Plane
    */
   draw() {
-
     if (shieldCollected) {
       this.drawShieldOnPlane();
     }
-
     Canvas.drawPlaneAndMissiles(sprites.plane[indexOfPlane], this.position, this.dimension, PLANE_ORIGIN, this.angle);
   }
 
