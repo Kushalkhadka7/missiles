@@ -68,10 +68,9 @@ class Plane {
 
     let opposite = Mouse.position.y - this.position.y;
 
-    let adajcent = Mouse.position.x - this.position.x;
+    let adajcent = Mouse.position.x - this.position.x - offset.left;
 
     this.rotation = Math.atan2(opposite, adajcent);
-
 
     let radDiff = 0;
 

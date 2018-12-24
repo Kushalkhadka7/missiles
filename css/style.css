@@ -8,7 +8,7 @@
   width: 400px;
   height: 600px;
   position: relative;
-  /* margin: 0 auto; */
+  margin: 0 auto;
 }
 
 ul{
@@ -24,6 +24,7 @@ ul{
   opacity: 1;
   display: block;
   font-family: cursive;
+  transition:opacity 0.5s linear;
 }
 .top-setting,
 .top-content{
@@ -211,11 +212,29 @@ ul{
 .model{
   background-color: #fff;
   position: absolute;
-  bottom: 12%;
+  bottom: 20%;
   left: 12%;
   width: 300px;
   margin: 0 auto;
   display: none;
+  -webkit-animation: mymove 3s;
+  -webkit-animation-fill-mode: forwards;
+  animation: mymove 2s;
+  animation-fill-mode: forwards;
+}
+@-webkit-keyframes mymove {
+  from {
+    top: 0px;
+  }
+  to {
+    top: 200px;
+    background-color: #fff;
+  }
+}
+
+@keyframes mymove {
+  from {top: 0px;}
+  to {top:95px; background-color: #fff;}
 }
 .model-header{
   background: #e13729;
