@@ -1,10 +1,6 @@
-let reqAnimationFrame;       //holds the value fo requestAnimationFrane either running or not
-let startGame = false;       //checks either the game is started or not
-let gameOver = false;        //detects either the game is over
-let starCollected = 0;       //holds the number of stars that the player collected
-let volumeOn = true;         //checks  the volume of the game (initially on )
 let paused = false;          //checks the state either the game is paused or not
-let gameOverTimeOut;         //runs the timeout after the game is over to show gameOverMenu
+let volumeOn = true;         //checks  the volume of the game (initially on )
+let starCollected = 0;       //holds the number of stars that the player collected
 let shieldCollected = false; //checks either shield is active or not
 
 /**
@@ -19,9 +15,13 @@ class Game {
   constructor() {
     this.score = 0;
     this.highScore = 0;
-    this.frameCount = 0;
     this.initial = true;
+    this.frameCount = 0;
+    this.gameOver = false;
+    this.reqAnimationFrame;
+    this.startGame = false;
     this.startMenuContainer;
+    this.gameOverTimeOut;
     this.gameOverMenuContainer;
     this.pauseButton = document.getElementById('pause-btn');
     this.chooseAssetsMenu = document.getElementById('model');
@@ -71,7 +71,7 @@ class Game {
       game.gameWorld.draw();
       game.gameWorld.update();
 
-      if (startGame == true && gameOver == false) {
+      if (game.startGame == true && game.gameOver == false) {
 
         game.gameWorld.drawAfterGameStart();
         game.drawScoreContents();
@@ -82,15 +82,15 @@ class Game {
     }
 
     /**runs the game loop */
-    reqAnimationFrame = requestAnimationFrame(game.mainloop);
+    game.reqAnimationFrame = requestAnimationFrame(game.mainloop);
 
     if (collided == true) {
-      cancelAnimationFrame(reqAnimationFrame);
-      startGame = false;
-      gameOver = true;
+      cancelAnimationFrame(game.reqAnimationFrame);
+      game.startGame = false;
+      game.gameOver = true;
       sounds.mainSound.pause();
 
-      gameOverTimeOut = setTimeout(() => {
+      game.gameOverTimeOut = setTimeout(() => {
         game.gameOverMenu();
       }, 1000);
       return;
@@ -106,7 +106,7 @@ class Game {
    * @memberof Game
    */
   playGameSound() {
-    if (volumeOn && !paused && !gameOver) {
+    if (volumeOn && !paused && !game.gameOver) {
       sounds.mainSound.play();
     }
     else {
@@ -229,7 +229,7 @@ class Game {
     let yourScoreText = document.getElementById('your-score');
     let yourTime = document.getElementById('scored-content-time');
     let yourStar = document.getElementById('scored-content-star');
-    let homeIcon = document.getElementById('home-icon');
+    let homeIcon = document.getElementById('gameover-home-icon');
     let scoreTotal = document.getElementById('score-total');
     let bestScore = document.getElementById('best-score-banner');
     let settings = document.getElementById('game-over-settings');
@@ -246,8 +246,8 @@ class Game {
     gameOverPlayBtn.addEventListener('click', () => {
       this.gameOverMenuContainer.style.display = "none";
 
-      clearTimeout(gameOverTimeOut);
-      cancelAnimationFrame(reqAnimationFrame);
+      clearTimeout(game.gameOverTimeOut);
+      cancelAnimationFrame(this.reqAnimationFrame);
 
       game.resetGame();
       game.start();
@@ -255,6 +255,7 @@ class Game {
 
     homeIcon.addEventListener('click', () => {
       this.gameOverMenuContainer.style.display = 'none';
+      this.startMenuContainer.style.display = 'block';
       location.reload();
     });
 
@@ -270,20 +271,18 @@ class Game {
    * @memberof Game
    */
   resetGame() {
-
-    startGame = true;
-    gameOver = false;
-    collided = false;
     paused = false;
-    shieldCollected = false;
-    missilesArray = [];
-    particlesArray = [];
-    pArr = [];
-    shieldArray = [];
-    starArray = [];
     this.score = 0;
+    plane.pArr = [];
+    collided = false;
     starCollected = 0;
-
+    game.gameOver = false;
+    this.startGame = true;
+    shieldCollected = false;
+    game.gameWorld.starArray = [];
+    game.gameWorld.shieldArray = [];
+    game.gameWorld.missilesArray = [];
+    game.gameWorld.particlesArray = [];
   }
 
   /**

@@ -1,17 +1,14 @@
 /**
  * missiles class that handles all missiles action like movements,collison
  * MISSILE_ORIGIN = co-ordinates to draw the missiles images
- * explosion = interval that runs after the missile is collided with plane
- * pool = array that collects all the destroyed particles
- * pArr = array that holds all the particles of particle system
+ * this.explosion = interval that runs after the missile is collided with plane
+ * this.pool = array that collects all the destroyed particles
+ * this.pArr = array that holds all the particles of particle system
  * collided = boolean that checks either missile is collided with plane or not(also used in Game class)
  * indexOfMissiles = variable that holds the index of missile images in missiles array(inGame Class)
  * @class Missiles
  */
 
-let pool = [];
-let pArr = [];
-let explosion;
 const TIMER = 1000;
 let collided = false;
 let indexOfMissiles = 0;
@@ -24,9 +21,12 @@ class Missiles {
     this.vy = 0;
     this.length;
     this.turn = 1;
-    this.velocity = 2;
+    this.pArr = [];
+    this.pool = [];
+    this.explosion;
     this.radius = 7.5;
     this.rotation = 0;
+    this.velocity = 2;
     this.destroyed = false;
     this.dimension = new Vector2(15, 20);
     this.position = new Vector2(100, 100);
@@ -187,23 +187,23 @@ class Missiles {
    * radius = radius of the particles generated (usually 0 to 15 random numbers)
    * vx = x velocity to particles
    * vy = y velocity to particles
-   * explosion = interval that runs for certain time
+   * this.explosion = interval that runs for certain time
    * @memberof Missiles
    */
   showParticleEffect(x, y) {
 
-    explosion = setInterval(() => {
+    this.explosion = setInterval(() => {
       for (let index = 0; index < 2; ++index) {
-        let particle = pool.pop();
+        let particle = this.pool.pop();
 
         if (particle != undefined) {
 
           particle.reset(x, y, color.getRGBString());
-          pArr.push(particle);
+          this.pArr.push(particle);
 
         } else {
 
-          pArr.push(
+          this.pArr.push(
             new Particles(
               x, y,
               Math.floor(Math.random() * 10 + 15),
@@ -216,20 +216,20 @@ class Missiles {
         }
       }
 
-      for (let index = pArr.length - 4; index > -1; --index) {
+      for (let index = this.pArr.length - 4; index > -1; --index) {
 
-        let particle = pArr[index];
+        let particle = this.pArr[index];
 
         particle.update();
 
-        if (particle.a <= 0.5) pool.push(pArr.splice(index, 1)[0]);
+        if (particle.a <= 0.5) this.pool.push(this.pArr.splice(index, 1)[0]);
 
         particle.draw();
       }
     });
 
     let timeOut = setTimeout(() => {
-      clearInterval(explosion);
+      clearInterval(this.explosion);
       clearTimeout(timeOut)
     }, TIMER);
   }

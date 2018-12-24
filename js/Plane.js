@@ -18,7 +18,6 @@ let indexOfPlane = 0;
 const VALUE_TO_PLANE_TAIL = 25;
 const PLANE_ORIGIN = new Vector2(30, 30);
 
-
 class Plane {
 
   constructor() {

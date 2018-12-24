@@ -1,15 +1,8 @@
 /**
- * starArray = array that holds all the generated stars
- * shieldArray = array that holds all the generated shields
- * missilesArray = array that holds all the generated missiles
- * particlesArray = array that holds all the generated particles in particle system
- */
-let starArray = [];
-let shieldArray = [];
-let missilesArray = [];
-let particlesArray = [];
-
-/**
+ * this.starArray = array that holds all the generated stars
+ * this.shieldArray = array that holds all the generated shields
+ * this.missilesArray = array that holds all the generated missiles
+ * this.particlesArray = array that holds all the generated particles in particle system
  * handles the components in the game like plane,missiles,backgound,stars,shield
  * this.countFrames = counts the number of frames
  * this.colorRangeIncrease = factor that increases the rgb value
@@ -20,6 +13,11 @@ let particlesArray = [];
 class GameWorld {
 
   constructor() {
+
+    this.starArray = [];
+    this.shieldArray = [];
+    this.missilesArray = [];
+    this.particlesArray = [];
     this.countFrames = 0;
     this.previouscounter = 0
     this.colorRangeIncrease = 0;
@@ -77,61 +75,61 @@ class GameWorld {
     if (this.countFrames % 300 == 0) {
 
       this.missile = new Missiles();
-      missilesArray.push(this.missile);
+      this.missilesArray.push(this.missile);
 
       this.star = new Stars();
-      starArray.push(this.star);
+      this.starArray.push(this.star);
     }
 
     /**generates the shield in certain interval */
     if (this.countFrames % 1000 == 0) {
       this.shield = new Shield();
-      shieldArray.push(this.shield);
+      this.shieldArray.push(this.shield);
     }
 
-    /*generates missiles using the missilesArray */
-    for (let i = 0; i < missilesArray.length; i++) {
+    /*generates missiles using the this.missilesArray */
+    for (let i = 0; i < this.missilesArray.length; i++) {
 
-      if (!missilesArray[i].destroyed) {
+      if (!this.missilesArray[i].destroyed) {
 
-        missilesArray[i].update(plane.angle);
+        this.missilesArray[i].update(plane.angle);
 
         /**attach particle system to individual missiles tracked by their index */
         this.showParticles(
-          missilesArray[i].position.x,
-          missilesArray[i].position.y,
+          this.missilesArray[i].position.x,
+          this.missilesArray[i].position.y,
           random(1, 2),
           i,
-          missilesArray[i].vx,
-          missilesArray[i].vy
+          this.missilesArray[i].vx,
+          this.missilesArray[i].vy
         );
 
-        missilesArray[i].draw();
-        missilesArray[i].collisonWithPlane();
+        this.missilesArray[i].draw();
+        this.missilesArray[i].collisonWithPlane();
 
-        for (let j = i + 1; j < missilesArray.length; j++) {
-          if (!missilesArray[j].destroyed) {
-            missilesArray[i].collisonWithOtherMissile(missilesArray[j]);
+        for (let j = i + 1; j < this.missilesArray.length; j++) {
+          if (!this.missilesArray[j].destroyed) {
+            this.missilesArray[i].collisonWithOtherMissile(this.missilesArray[j]);
           }
         }
       }
     }
 
-    /*generates stars form starArray */
-    for (let i = 0; i < starArray.length; i++) {
-      if (!starArray[i].destroyed) {
-        starArray[i].draw();
-        starArray[i].update(plane.rotation);
-        starArray[i].starCollisonWithPlane();
+    /*generates stars form this.starArray */
+    for (let i = 0; i < this.starArray.length; i++) {
+      if (!this.starArray[i].destroyed) {
+        this.starArray[i].draw();
+        this.starArray[i].update(plane.rotation);
+        this.starArray[i].starCollisonWithPlane();
       }
     }
 
-    /*generates shield form starArray */
-    for (let i = 0; i < shieldArray.length; i++) {
-      if (!shieldArray[i].destroyed) {
-        shieldArray[i].draw();
-        shieldArray[i].update(plane.rotation);
-        shieldArray[i].shieldCollisonWithPlane();
+    /*generates shield form this.starArray */
+    for (let i = 0; i < this.shieldArray.length; i++) {
+      if (!this.shieldArray[i].destroyed) {
+        this.shieldArray[i].draw();
+        this.shieldArray[i].update(plane.rotation);
+        this.shieldArray[i].shieldCollisonWithPlane();
       }
     }
   }
@@ -153,7 +151,7 @@ class GameWorld {
     // this.colorRangeIncrease += 0.01;
     // this.color.gradualShift(this.colorRangeIncrease);
 
-    particlesArray.push(
+    this.particlesArray.push(
       new Particles(
         x, y,
         radius,
@@ -164,19 +162,19 @@ class GameWorld {
       )
     );
 
-    /**generates particles from particlesArray and removes those particles that have alpha less than 0*/
-    for (let index = particlesArray.length - 1; index > -1; --index) {
+    /**generates particles from this.particlesArray and removes those particles that have alpha less than 0*/
+    for (let index = this.particlesArray.length - 1; index > -1; --index) {
 
-      let particle = particlesArray[index];
+      let particle = this.particlesArray[index];
 
-      if (missilesArray[particle.id].destroyed) {
-        particlesArray.splice(index, 1);
+      if (this.missilesArray[particle.id].destroyed) {
+        this.particlesArray.splice(index, 1);
         continue;
       }
       particle.updatePositionInMissiles();
 
       if (particle.a <= 0.2) {
-        particlesArray.splice(index, 1)[0];
+        this.particlesArray.splice(index, 1)[0];
       }
 
       particle.draw();
