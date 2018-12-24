@@ -12,8 +12,8 @@ class Background {
     this.x;
     this.y;
     this.velocity = 3;
-    this.position = new Vector2(-300, -300);
-    this.backgroundDimensions = new Vector2(2000, 2000);
+    this.position = new Vector2(-1000, -1000);
+    this.backgroundDimensions = new Vector2(5000, 5000);
   }
 
   /**
@@ -45,10 +45,10 @@ class Background {
     this.position.x -= this.x * this.velocity;
     this.position.y -= this.y * this.velocity;
 
-    if (this.position.x > -200) { this.position.x = -1500; }
-    if (this.position.x < -1500) { this.position.x = -300; }
-    if (this.position.y > -200) { this.position.y = -1500; }
-    if (this.position.y < -1500) { this.position.y = -300; }
+    if (this.position.x > -800) { this.position.x = -4000; }
+    if (this.position.x < -4000) { this.position.x = -800; }
+    if (this.position.y > -800) { this.position.y = -4000; }
+    if (this.position.y < -4000) { this.position.y = -800; }
   }
 }
 

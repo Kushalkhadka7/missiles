@@ -88,6 +88,7 @@ class Game {
       cancelAnimationFrame(reqAnimationFrame);
       startGame = false;
       gameOver = true;
+      sounds.mainSound.pause();
 
       gameOverTimeOut = setTimeout(() => {
         game.gameOverMenu();
@@ -105,25 +106,11 @@ class Game {
    * @memberof Game
    */
   playGameSound() {
-
-    if (volumeOn && !paused) {
+    if (volumeOn && !paused && !gameOver) {
       sounds.mainSound.play();
-      while (collided || missile.destroyed) { sounds.collisonSound.play(); }
-      if (starCollected) { sounds.starCollectionSound.play(); }
-
-      let distance = calcDistance(
-        plane.position.x,
-        plane.position.y,
-        missile.position.x,
-        missile.position.y,
-        100, 5
-      );
-      if (distance) { sounds.missileSound.play(); }
     }
     else {
       sounds.mainSound.pause();
-      sounds.collisonSound.pause();
-      sounds.starCollectionSound.pause();
     }
   }
 

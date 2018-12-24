@@ -173,6 +173,7 @@ class Missiles {
         collided = false;
       } else if (!shieldCollected) {
         this.showParticleEffect(missileX, missileY);
+        if (volumeOn) { sounds.collisonSound.play(); }
         this.destroyed = true;
         collided = true;
       }
@@ -255,6 +256,7 @@ class Missiles {
     if (distance == true) {
 
       this.showParticleEffect(thisMissileX, thisMissileY);
+      if (volumeOn) { sounds.collisonSound.play(); }
       let timeOut = setTimeout(() => {
         this.destroyed = true;
         other.destroyed = true;
