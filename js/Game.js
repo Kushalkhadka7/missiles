@@ -61,7 +61,7 @@ class Game {
    * @memberof Game
    */
   mainloop(time) {
-    // game.playGameSound();
+    game.playGameSound();
 
     if (!paused) {
 
